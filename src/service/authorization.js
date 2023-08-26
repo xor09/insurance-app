@@ -1,5 +1,23 @@
 import axios from "axios"
 
+export const getRole = async (token) => {
+    const response = await axios.post(`http://localhost:8080/api/auth/getrole`,{},{
+        params: {
+            token: token
+        },
+    });
+    return response;
+}
+
+export const getUsername = async (token) => {
+    const response = await axios.post(`http://localhost:8080/api/auth/getusername`, {},{
+        params: {
+            token: token
+        },
+    });
+    return response;
+}
+
 export const login = async (username, password) => {
     const response = await axios.post(`http://localhost:8080/api/auth/login`,{
         username: username,
@@ -47,10 +65,11 @@ export const agentRegistration = async (firstname, lastname, username, password,
     return response
 }
 
-export const customerRegistration = async (firstname, lastname, username, password, mobile, email, state, city) => {
+export const customerRegistration = async (firstname, lastname, age, username, password, mobile, email, state, city) => {
     const response = await axios.post('http://localhost:8080/api/auth/customerregister',{
         firstname : firstname,
         lastname : lastname,
+        age : age,
         username : username,
         password : password,
         mobileNo : mobile,
@@ -61,3 +80,4 @@ export const customerRegistration = async (firstname, lastname, username, passwo
     })
     return response
 }
+

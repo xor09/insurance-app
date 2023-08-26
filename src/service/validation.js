@@ -9,6 +9,11 @@ export const validatelastname = (lastname) => {
     const regex = /^[A-Za-z]+$/;
     return regex.test(lastname);
 }
+
+export const validateage = (age) => {
+    return age>0;
+}
+
 export const validateusername = (username) => {
     return username.length >= 6;
 }

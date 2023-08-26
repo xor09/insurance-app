@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const AleartBox = (props) => {
     const message = props.message;
-    const setAlert = props.setAlert;  
+    const setAlert = props.setAlert;
+
+    useEffect(()=>{
+        setTimeout(() => {
+            setAlert(null)
+        }, 3000);  
+    })
     return (
         <div className="alert alert-danger d-flex align-items-center justify-content-center position-fixed top-0 start-50 translate-middle-x" role="alert" style={{ zIndex: 1000}}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">

@@ -1,0 +1,8 @@
+.card-wrapper{
+    display: flex;
+    margin: 20px 0px;
+}
+
+.card-image {
+    width: 400px;
+}

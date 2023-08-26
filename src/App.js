@@ -6,6 +6,11 @@ import EmployeeRegistration from './components/employeeRegistration/EmployeeRegi
 import Login from './components/login/Login';
 import AgentRegistration from './components/agentRegistration/AgentRegistration';
 import CustomerRegistration from './components/customerRegistration/CustomerRegistration';
+import Scheme from './components/scheme/Scheme';
+import Dashboard from './components/dashboard/Dashboard';
+import CustomerDashboard from './components/customerDashboard/CustomerDashboard';
+import AdminDashboard from './components/adminDashboard/AdminDashboard';
+import EmployeeDashboard from './components/employeeDashboard/EmployeeDashboard';
 
 
 function App() {
@@ -14,9 +19,12 @@ function App() {
     <Routes>
       <Route path='/login' element={<Login />}/>
       <Route path='/adminregistration' element={<AdminRegistration />} />
-      <Route path='/employeeregistration' element={<EmployeeRegistration />} />
-      <Route path='/agentregistration' element={<AgentRegistration />} />
-      <Route path='/customerregistration' element={<CustomerRegistration />} />
+      <Route path='/' element={<Dashboard />} />
+      <Route path='/admin/:username' element={<AdminDashboard />} />
+      <Route path='/employee/:username' element={<EmployeeDashboard />} />
+      <Route path='/agent/:username' element={<Dashboard />} />
+      <Route path='/customer/:username' element={<CustomerDashboard />} />
+      <Route path='/scheme' element={<Scheme />} />
     </Routes>
     </>
   );

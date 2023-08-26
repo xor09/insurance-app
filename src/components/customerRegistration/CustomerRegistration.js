@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../assets/css/Form.css'
-import { validateCity, validateEmail, validateMobile, validateState, validatefirstname, validatelastname, validatepassword, validateusername } from '../../service/validation';
+import { validateCity, validateEmail, validateMobile, validateState, validateage, validatefirstname, validatelastname, validatepassword, validateusername } from '../../service/validation';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import { customerRegistration } from '../../service/authorization';
@@ -14,6 +14,7 @@ const CustomerRegistration = () => {
     const [email, setEmail] = useState('');
     const [state, setState] = useState('')
     const [city, setCity] = useState('')
+    const [age, setAge] = useState(0)
     const [alert, setAlert] = useState(null);
     const [alertSuccess, setAlertSuccess] = useState(null);
 
@@ -25,6 +26,10 @@ const CustomerRegistration = () => {
         }
         if(!validatelastname(lastname)){
             setAlert("write a valid lastname");
+            return;
+        }
+        if(!validateage(age)){
+            setAlert("Enter a valid age");
             return;
         }
         if(!validateusername(username)){
@@ -52,7 +57,7 @@ const CustomerRegistration = () => {
             return;
         }
         try{
-            const response = await customerRegistration(firstname, lastname, username, password, mobile, email, state, city);
+            const response = await customerRegistration(firstname, lastname, age, username, password, mobile, email, state, city);
             console.log(response)
             setAlertSuccess(response.data)
         }catch(e){
@@ -82,6 +87,12 @@ const CustomerRegistration = () => {
                         <input type="text" className="form-control" id="lastname" required
                         placeholder='example: Doe'
                         value={lastname} onChange={(e)=>setLastname(e.target.value.trim())}/>
+                    </div>
+                    <div className="mb-3">
+                        <label for="age" className="form-label">Age</label>
+                        <input type="number" className="form-control" id="age" required
+                        placeholder='example: 20'
+                        value={age} onChange={(e)=>setAge(parseInt(e.target.value.trim()))}/>
                     </div>
                     <div className="mb-3">
                         <label for="username" className="form-label">Username</label>

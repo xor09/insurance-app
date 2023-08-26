@@ -1,0 +1,27 @@
+.custom-navbar, .custom-dropdown {
+    background: rgb(53, 46, 46);
+    color: white;
+}
+.dropdown-item {
+    color: whitesmoke;
+}
+
+.nav-link {
+    color: beige;
+}
+
+.nav-link:hover {
+    color: rgb(166, 112, 42);
+    cursor: pointer;
+}
+
+.toogle-button-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.toogle-button {
+    background-color: white;
+    height: 3px;
+    margin: 4px;
+}

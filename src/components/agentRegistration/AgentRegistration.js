@@ -50,7 +50,7 @@ const AgentRegistration = () => {
             {alertSuccess && <AleartBoxSuccess message={alertSuccess} setAlert={setAlertSuccess}/>}
             { alert && <AleartBox message={alert} setAlert={setAlert}/>}
             <div className='registartion-form-wrapper'>
-                <h1>Admin Registration</h1>
+                <h1>Agent Registration</h1>
                 <form className='w-25 my-5 shadow p-3 mb-5 bg-body rounded p-4'> 
                     <div className="mb-3">
                         <label for="firstname" className="form-label">Firstname</label>

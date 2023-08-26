@@ -5,7 +5,8 @@ import { employeeRegistration } from '../../service/authorization';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 
-const EmployeeRegistration = () => {
+const EmployeeRegistration = (props) => {
+    const setTabs = props.setTabs;
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [username, setUsername] = useState('');
@@ -43,9 +44,12 @@ const EmployeeRegistration = () => {
     }
 
     return (
-        <>
+        <div className='p-4'>
             {alertSuccess && <AleartBoxSuccess message={alertSuccess} setAlert={setAlertSuccess}/>}
             { alert && <AleartBox message={alert} setAlert={setAlert}/>}
+            <div className='float-start'>
+                <button type="button" class="btn btn-secondary text-end" onClick={()=>setTabs(null)}>Back</button>
+            </div><br/>
             <div className='registartion-form-wrapper'>
                 <h1>Employee Registration</h1>
                 <form className='w-25 my-5 shadow p-3 mb-5 bg-body rounded p-4'> 
@@ -64,7 +68,7 @@ const EmployeeRegistration = () => {
                         value={lastname} onChange={(e)=>setLastname(e.target.value.trim())}/>
                     </div>
                     <div className="mb-3">
-                        <label for="salary" className="form-label">Password</label>
+                        <label for="salary" className="form-label">Salary</label>
                         <input type="number" className="form-control" id="salary" required
                         value={salary} onChange={(e)=>setSalary(e.target.value)} />
                     </div>
@@ -88,7 +92,7 @@ const EmployeeRegistration = () => {
                             
                 </form>
             </div>
-        </>
+        </div>
     )
 }
 
