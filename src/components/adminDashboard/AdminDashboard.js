@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { AGENT_REGISTRATION, ALL_EMPLOYEES, ALL_PLANS, CUSTOMER_REGISTRATION, HOME, PLAN, ROLE_ADMIN, ROLE_CUSTOMER, SCHEMES } from '../../assets/constants';
+import { ADD_SCHEME, AGENT_REGISTRATION, ALL_EMPLOYEES, ALL_PLANS, ALL_SCHEME, CUSTOMER_REGISTRATION, HOME, PLAN, ROLE_ADMIN, ROLE_CUSTOMER, SCHEMES } from '../../assets/constants';
 import { getRole, getUsername } from '../../service/authorization';
 import { getUser } from '../../service/userApis';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
@@ -12,6 +12,8 @@ import Home from '../home/Home';
 import AgentRegistration from '../agentRegistration/AgentRegistration';
 import CustomerRegistration from '../customerRegistration/CustomerRegistration';
 import Employees from '../employees/Employees';
+import SchemeRegistration from '../schemeRegistration/SchemeRegistration';
+import Schemes from '../schemes/Schemes';
 
 const AdminDashboard = () => {
     const navigation = useNavigate();
@@ -31,12 +33,14 @@ const AdminDashboard = () => {
 
         const response1 = await getRole(token);
         if(response1.data !== ROLE_ADMIN){
+            localStorage.removeItem("auth")
             navigation('/');
             return;
         }
 
         const response2 = await getUsername(token);
         if(response2.data !== username){
+            localStorage.removeItem("auth")
             navigation('/');
             return;
         }
@@ -68,6 +72,8 @@ const AdminDashboard = () => {
             {component===ALL_EMPLOYEES && <Employees />}
             {component===ALL_PLANS && <Plans />}
             {component===PLAN && <Plan planid={planid}/>}
+            {component===ADD_SCHEME && <SchemeRegistration />}
+            {component===ALL_SCHEME && <Schemes />}
         </>
     );
 }

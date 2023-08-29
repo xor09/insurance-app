@@ -1,7 +1,21 @@
 import axios from "axios"
 
-export const getAllPlans = (token) => {
+
+export const getAllPlansWithoutPage = (token) => {
+    const response = axios.get(`http://localhost:8080/insurenceapp/getallplans`,{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return response;
+}
+
+export const getAllPlans = (currentpageno, size, token) => {
     const response = axios.get(`http://localhost:8080/insurenceapp/getallinsurenceplans`,{
+        params:{
+            pageno : currentpageno-1,
+            pagesize : size
+        },
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -32,8 +46,12 @@ export const addPlans = (addPlan, token) => {
     return response;
 }
 
-export const getAllEmployees = (token) => {
-    const response = axios.get(`http://localhost:8080/insurenceapp/getallemployees`,{
+export const getAllEmployees = (currentpageno, size, token) => {
+    const response = axios.get(`http://localhost:8080/insurenceapp/getemployees`,{
+        params:{
+            pageno : currentpageno-1,
+            pagesize : size
+        },
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -63,4 +81,26 @@ export const deleteEmployee = (employeeid, token) => {
         }
     })
     return response
+}
+
+export const addScheme = (scheme , token) => {
+    const response = axios.post(`http://localhost:8080/insurenceapp/addinsurencescheme`,scheme,{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return response;
+}
+
+export const getAllSchemes = (currentpageno, size, token) => {
+    const response = axios.get(`http://localhost:8080/insurenceapp/getinsurenceschemes`,{},{
+        params:{
+            pageno : currentpageno-1,
+            pagesize : size
+        },
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return response;
 }

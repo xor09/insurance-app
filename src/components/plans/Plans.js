@@ -4,6 +4,7 @@ import { addPlans, getAllPlans, updatePlan } from '../../service/adminApis';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import Table from '../sharedComponent/table/Table';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
+import { ACTIVE, INACTIVE } from '../../assets/constants';
 
 const Plans = () => {
     const token = localStorage.getItem('auth')
@@ -14,14 +15,20 @@ const Plans = () => {
     const [planstatus, setPlanstatus] = useState(null)
     const [alertSuccess, setAlertSuccess] = useState(null);
     const [addPlan, setAddPlan] = useState(null)
+    const [currentpageno, setCurrentpageno] = useState(1);
+    const [size, setSize] = useState(5);
+    const [totalpages, setTotalpages] = useState(1);
 
     const tableHeaders = ['#', 'Plan Name', 'Status', 'UPDATE'];
 
     const fetchPlansHandler = async() =>{
         try{
-            const response = await getAllPlans(token)
+            const response = await getAllPlans(currentpageno, size, token)
+            setCurrentpageno(currentpageno);
+            setTotalpages(response.data.totalPages);
+
             let arr = []
-            response.data.map((plan, index) => {
+            response.data.content.map((plan, index) => {
                 let data = [index+1, 
                     plan.planname,
                     plan.status,
@@ -94,7 +101,16 @@ const Plans = () => {
                         >Add Plan</button>
                     </div>
                 </div>
-            {tableData && <Table tableHeaders={tableHeaders} tableData={tableData}/>}
+            {
+                <Table 
+                    tableHeaders={tableHeaders} 
+                    tableData={tableData}
+                    currentpageno={currentpageno}
+                    setCurrentpageno={setCurrentpageno}
+                    totalpages={totalpages}
+                    setSize={setSize}
+                />
+            }
 
             {/* update Insurance Plan modal */}
             <div className='mx-3 my-4'>
@@ -116,8 +132,8 @@ const Plans = () => {
                                 <div className="modal-body">
                                     <label htmlFor="planstatus">Plan Status:</label><br/>
                                     <select className="custom-select" id="planstatus" onChange={(e) => setPlanstatus(e.target.value)}>
-                                        <option value="ACTIVE">ACTIVE</option> 
-                                        <option value="INACTIVE">INACTIVE</option> 
+                                        <option value="ACTIVE" selected={planstatus === ACTIVE}>ACTIVE</option> 
+                                        <option value="INACTIVE" selected={planstatus === INACTIVE}>INACTIVE</option> 
                                     </select>
                                 </div>
                                 <div className="modal-footer">

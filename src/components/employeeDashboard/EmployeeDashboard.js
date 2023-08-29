@@ -30,12 +30,14 @@ const EmployeeDashboard = () => {
 
         const response1 = await getRole(token);
         if(response1.data !== ROLE_EMPLOYEE){
+            localStorage.removeItem("auth")
             navigation('/');
             return;
         }
 
         const response2 = await getUsername(token);
         if(response2.data !== username){
+            localStorage.removeItem("auth")
             navigation('/');
             return;
         }

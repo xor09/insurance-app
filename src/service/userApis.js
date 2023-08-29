@@ -12,5 +12,16 @@ export const getUser = async (username, token) => {
 
 export const getAllActivePlans = async () => {
     const response = await axios.get(`http://localhost:8080/insurenceapp/getactiveinsuranceplans`);
-    return response;;
+    return response;
+}
+
+
+export const getAllActiveSchemes = (token) => {
+    const response = axios.get(`http://localhost:8080/insurenceapp/getactiveschemesandplans`);
+    return response;
+}
+
+export const getAllActiveSchemesByPlanId = (planid) => {
+    const response = axios.get(`http://localhost:8080/insurenceapp/getactiveschemes/${planid}`);
+    return response;
 }

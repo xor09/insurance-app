@@ -18,14 +18,20 @@ const Employees = () => {
     const [alert, setAlert] = useState(null);
     const [alertSuccess, setAlertSuccess] = useState(null);
     const [tableData, setTableData] = useState(null)
+    const [currentpageno, setCurrentpageno] = useState(1);
+    const [size, setSize] = useState(5);
+    const [totalpages, setTotalpages] = useState(1);
 
     const tableHeaders = ['#', 'Employee Name', 'Salary', 'UPDATE', "DELETE"]
 
     const fetchEmployeesHandler = async () => {
         try{
-            const response = await getAllEmployees(token)
+            const response = await getAllEmployees(currentpageno, size, token)
+            setCurrentpageno(currentpageno);
+            setTotalpages(response.data.totalPages);
+
             let arr = []
-            response.data.map((employee, index) => {
+            response.data.content.map((employee, index) => {
                 let data = [index+1, 
                     employee.firstname +" " +employee.lastname,
                     employee.salary,
@@ -93,7 +99,14 @@ const Employees = () => {
                         <button type="button" class="btn btn-secondary text-end" onClick={()=>setTabs(EMPLOYEE_REGISTRATION)}>Add Employee</button>
                     </div><br />
                     {
-                       <Table tableHeaders={tableHeaders} tableData={tableData}/> 
+                       <Table 
+                        tableHeaders={tableHeaders} 
+                        tableData={tableData}
+                        currentpageno={currentpageno}
+                        setCurrentpageno={setCurrentpageno}
+                        totalpages={totalpages}
+                        setSize={setSize}
+                        /> 
                     }
                 </div>
             }

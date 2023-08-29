@@ -23,3 +23,20 @@ export const AGENTS = 'AGENTS'
 export const PENDING_AGENTS = 'PENDING_AGENTS'
 export const ACTIVE_AGENTS = 'ACTIVE_AGENTS'
 export const INACIVE_AGENTS = 'INACTIVE_AGENTS'
+
+export const PENDING = 'PENDING'
+export const ACTIVE = 'ACTIVE'
+export const INACTIVE = 'INACTIVE'
+export const NO_OPTION = 'NO_OPTION'
+
+export const ADD_SCHEME = 'ADD_SCHEME'
+export const ALL_SCHEME = 'ALL_SCHEME'
+
+export const BUY_POLICY = 'BUY_POLICY';
+export const PAYMENT_GATEWAY = 'PAYMENT_GATEWAY'
+
+export const REGULAR = "REGULAR"
+export const DEBIT_CARD = "DEBIT_CARD"
+export const CREDIT_CARD = "CREDIT_CARD"
+export const PROFILE = "PROFILE"
+export const AGENT_POLICIES = "AGENT_POLICIES"

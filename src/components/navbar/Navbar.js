@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Navbar.css'
 import { useNavigate } from 'react-router-dom';
-import { AGENTS, AGENT_REGISTRATION, ALL_EMPLOYEES, ALL_PLANS, CUSTOMER_REGISTRATION, HOME, LOGIN, PLAN, ROLE_ADMIN, ROLE_EMPLOYEE, SCHEMES } from '../../assets/constants';
+import { ADD_SCHEME, AGENTS, AGENT_POLICIES, AGENT_REGISTRATION, ALL_EMPLOYEES, ALL_PLANS, ALL_SCHEME, CUSTOMER_REGISTRATION, HOME, LOGIN, PLAN, PROFILE, ROLE_ADMIN, ROLE_AGENT, ROLE_EMPLOYEE, SCHEMES } from '../../assets/constants';
 import { getAllActivePlans } from '../../service/userApis';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 
@@ -16,6 +16,7 @@ const Navbar = (props) => {
 
     const handleLogout = () => {
         localStorage.removeItem("auth")
+        setComponent(HOME)
         navigation('/')
         return;
     }
@@ -32,6 +33,7 @@ const Navbar = (props) => {
     useEffect(()=>{
         fetchActivePlansHandler()
     },[])
+
     return (
         <>
             {alert && <AleartBox message={alert} setAlert={setAlert}/>}
@@ -61,7 +63,6 @@ const Navbar = (props) => {
                                 <p className="nav-link" aria-current="page"  onClick={()=>setComponent(AGENTS)}>Agents</p>
                             </li>
                         }
-
                         
 
                         {
@@ -79,6 +80,28 @@ const Navbar = (props) => {
                                         }}>{plan.planname}</p></li>
                                     )
                                 }
+                                
+                            </ul>
+                            </li>
+                        }
+
+                        {
+                            user && user.role === ROLE_ADMIN &&
+                            <li className="nav-item dropdown">
+                            <p className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Schemes
+                            </p>
+                            <ul className="dropdown-menu custom-dropdown">
+                                <li><p className="dropdown-item" 
+                                onClick={()=>{
+                                    setComponent(ADD_SCHEME)
+                                }}>Add Scheme</p></li>
+                                
+                                <li><p className="dropdown-item" 
+                                onClick={()=>{
+                                    setComponent(ALL_SCHEME)
+                                }}>ALL Scheme</p></li>
+                                
                                 
                             </ul>
                             </li>
@@ -104,18 +127,31 @@ const Navbar = (props) => {
                         </ul>
                         </li>
 
-                        {token 
-                            ? 
+                        {
+                             user && user.role === ROLE_AGENT &&
+                            <>
                                 <li className="nav-item">
-                                <p className="nav-link" onClick={() => handleLogout()}>Logout</p>
+                                    <p className="nav-link" aria-current="page"  onClick={()=>setComponent(PROFILE)}>Profile</p>
                                 </li>
-                            :
+                                
                                 <li className="nav-item">
-                                <p className="nav-link" onClick={() => setComponent(LOGIN)} >Login</p>
-                                </li> 
+                                    <p className="nav-link" aria-current="page"  onClick={()=>setComponent(AGENT_POLICIES)}>Policies</p>
+                                </li>
+                             </>
                         }
 
-                        
+                        {
+                            token 
+                                ? 
+                                    <li className="nav-item">
+                                    <p className="nav-link" onClick={() => handleLogout()}>Logout</p>
+                                    </li>
+                                :
+                                    <li className="nav-item">
+                                    <p className="nav-link" onClick={() => setComponent(LOGIN)} >Login</p>
+                                    </li> 
+                        }
+
                     </ul>
                     </div>
                 </div>

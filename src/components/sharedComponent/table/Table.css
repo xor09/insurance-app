@@ -1,5 +1,5 @@
 .table-wrapper {
-    margin-top: 20px;
+    margin: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,4 +17,6 @@
     border-radius: 3px;
     border: 1px solid rgb(71, 68, 68)
 }
+
+
 
