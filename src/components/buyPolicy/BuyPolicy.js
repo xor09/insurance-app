@@ -3,7 +3,9 @@ import { BUY_POLICY, REGULAR, SCHEME_DETAILS } from '../../assets/constants';
 import PaymentGateway from '../paymentGateway/PaymentGateway';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import { calculateAgentCommission } from '../../service/calculator';
-import { getActiveAgents } from '../../service/customerApis';
+import { getActiveAgents, purchasePolicy } from '../../service/customerApis';
+import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const BuyPolicy = (props) => {
     const tabs = props.tabs;
@@ -11,6 +13,8 @@ const BuyPolicy = (props) => {
     const user = props.user
     const scheme = props.scheme;
     const investmentDetail = props.investmentDetail;
+    const username = useParams().username;
+    const navigation = useNavigate()
     
     const token = localStorage.getItem('auth')
     const agentCommision = calculateAgentCommission(investmentDetail.investmentPerMonth, scheme.registrationCommission)
@@ -23,6 +27,7 @@ const BuyPolicy = (props) => {
     const [secondNominee, setSecondNominee] = useState('');
     const [secondNomineeRelation, setSecondNomineeRelation] = useState('');
     const [alert, setAlert] = useState(null);
+    const [alertSuccess, setAlertSuccess] = useState(null);
     const [selectedFiles, setSelectedFiles] = useState([]);
 
 
@@ -41,7 +46,7 @@ const BuyPolicy = (props) => {
         return;
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         if(firstNominee.trim().length===0 || firstNomineeRelation.trim().length===0){
             setAlert("First Nominee Required");
@@ -59,13 +64,17 @@ const BuyPolicy = (props) => {
             nomineeRelation: firstNomineeRelation
         }];
         if(secondNominee.trim().length!==0 && secondNomineeRelation.trim().length!==0){
-            nominees = [...nominees, {secondNominee, secondNomineeRelation}]
+            nominees = [...nominees, {nomineeName: secondNominee, nomineeRelation: secondNomineeRelation}]
         }
         investmentDetail.nominees = nominees
         investmentDetail.agentId = selectedAgent
         investmentDetail.premiumType = REGULAR
-
-        setShowGateway(true)
+        try{
+            const response = await purchasePolicy(investmentDetail, token);
+            navigation(`/info/${username}/${response.data}`)
+        }catch(e){
+            setAlert(e.response.data)
+        }
         return;
     }
 
@@ -76,9 +85,9 @@ const BuyPolicy = (props) => {
     return (
         <>
         {
-            !showGateway ? 
             <div className='w-100 m-5'>
                 {alert && <AleartBox message={alert} setAlert={setAlert}/>}
+                {alertSuccess && <AleartBoxSuccess message={alertSuccess} setAlert={setAlertSuccess}/>}
                 <div className='float-start'>
                     <button type="button" className="btn btn-outline-info text-end" onClick={()=>setTabs(SCHEME_DETAILS)}>🔙</button>
                 </div>
@@ -231,14 +240,15 @@ const BuyPolicy = (props) => {
                 </form>
             </div>
             </div>
-            :
-                <PaymentGateway 
-                    setShowGateway = {setShowGateway}
-                    investmentDetail = {investmentDetail}
-                    amount = {investmentDetail.investmentPerMonth}
-                    agentCommision = {agentCommision}
-                    agentId = {selectedAgent}
-                />
+            
+                
+                // <PaymentGateway 
+                //     setShowGateway = {setShowGateway}
+                //     investmentDetail = {investmentDetail}
+                //     amount = {investmentDetail.investmentPerMonth}
+                //     agentCommision = {agentCommision}
+                //     agentId = {selectedAgent}
+                // />
         }
             </>
     )

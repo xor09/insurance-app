@@ -49,3 +49,9 @@ export const validateCity = (city) => {
     city = city.trim();
     return city.length > 0
 }
+
+export const validateSchemeName = (schemename) => {
+    if(schemename.length === 0) return false;
+    const regex = /^[A-Za-z]+$/;
+    return regex.test(schemename);
+}

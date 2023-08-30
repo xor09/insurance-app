@@ -12,7 +12,7 @@ export const calculatePayAmount = (amount, taxPercentage) => {
     return finalAmount.toFixed(2);
 }
 
-export const calculateAgentCommission = (amount, ratio) => {
-    const commission = ((ratio)*amount)/100 ;
+export const calculateAgentCommission = (amount, percentage) => {
+    const commission = ((percentage)*amount)/100 ;
     return commission.toFixed(2);
 }

@@ -8,11 +8,11 @@ import { ACTIVE, INACTIVE } from '../../assets/constants';
 
 const Plans = () => {
     const token = localStorage.getItem('auth')
-    const [alert, setAlert] = useState(null);
     const [tableData, setTableData] = useState(null)
     const [planid, setPlanid] = useState(null)
     const [planname, setPlainname] = useState(null)
     const [planstatus, setPlanstatus] = useState(null)
+    const [alert, setAlert] = useState(null);
     const [alertSuccess, setAlertSuccess] = useState(null);
     const [addPlan, setAddPlan] = useState(null)
     const [currentpageno, setCurrentpageno] = useState(1);
@@ -81,7 +81,7 @@ const Plans = () => {
 
     useEffect(()=>{
         fetchPlansHandler()
-    },[])
+    },[currentpageno, size])
 
     return (
         <div>

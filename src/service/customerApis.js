@@ -53,3 +53,39 @@ export const payInstallment = async (policyNo, date, cardType, amount, tax, fina
     return response;
 }
 
+export const askQuestion = async (customerid, query, token) => {
+    const response = await axios.post(`http://localhost:8080/insurenceapp/addquery/${customerid}`,
+    query,
+    {
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response
+}
+
+export const getPolicies = async (customerid, currentpageno, size, token) => {
+    const response = await axios.get(`http://localhost:8080/insurenceapp/getpolicybycustomer/${customerid}`,
+    {
+        params: {
+            pageno: currentpageno-1,
+            pagesize : size
+        },
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response
+}
+
+export const getPaymentByPolicyNo = async (policyid, currentpageno, size) => {
+    const response = await axios.get(`http://localhost:8080/insurenceapp/getpayment/${policyid}`,
+    {
+        params: {
+            pageno: currentpageno-1,
+            pagesize : size
+        }
+    })
+    return response
+}
+

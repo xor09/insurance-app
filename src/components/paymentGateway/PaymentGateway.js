@@ -2,27 +2,30 @@ import React, { useEffect, useState } from 'react';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
 import { payInstallment, purchasePolicy } from '../../service/customerApis';
-import { CREDIT_CARD, DEBIT_CARD } from '../../assets/constants';
-import { calculatePayAmount } from '../../service/calculator';
+import { CREDIT_CARD, CUSTOMER_PAYMENTS, DEBIT_CARD } from '../../assets/constants';
+import { calculateAgentCommission, calculatePayAmount } from '../../service/calculator';
 import { format } from 'date-fns';
 import { useNavigate, useParams } from 'react-router-dom';
+import { addCommission } from '../../service/agentApis';
 
 const PaymentGateway = (props) => {
     const token = localStorage.getItem('auth')
-    const setShowGateway = props.setShowGateway;
-    const investmentDetail = props.investmentDetail;
+    const setTab = props.setTab;
+    const agentCommission = props.agentCommission //in percentage
+    const agentid = props.agentid
+
+    const policyNo = props.policyNo
     const amount = props.amount
-    const agentCommision = props.agentCommision
-    const agentId = props.agentId
-    const tax = 5;
+    const tax = 5; //in percentage (fixed)
+
     const username = useParams().username;
     const navigation = useNavigate()
-
     const [cardType, setCardType] = useState('');
     const [cardNumber, setCardNumber] = useState('');
     const [cvv, setCvv] = useState('');
     const [alert, setAlert] = useState(null);
     const [finalAmount, setFinalAmount] = useState(0.0);
+    const [commissionAmount, setCommissionAmount] = useState(0.0)
     
     const handleCardTypeChange = (event) => {
       setCardType(event.target.value);
@@ -35,6 +38,16 @@ const PaymentGateway = (props) => {
     const handleCvvChange = (event) => {
       setCvv(event.target.value);
     };
+
+    const addCommissionHandler = async () => {
+        try{
+            const response = await addCommission(agentid, commissionAmount);
+        }catch(e){
+            setAlert(e.response.data);
+
+        }
+        return;
+    }
   
     const handleSubmit = async(event) => {
       event.preventDefault();
@@ -50,24 +63,18 @@ const PaymentGateway = (props) => {
             setAlert("Please enter a valid CVV number");
             return;
         }
-        
         try{
             const currentDate = new Date();
             const date = format(currentDate, 'yyyy-MM-dd');
-            let policyNo = -1;
-            let message = "";
-            if(investmentDetail) {
-                const response = await purchasePolicy(investmentDetail, token);
-                policyNo = response.data;
-                message += "Policy Purchased Successfully. ";
-            }
-
+ 
             //payment
             const response = await payInstallment(policyNo, date, cardType, amount, tax, finalAmount, token);
-            message += response.data
-
+            const message = response.data
+            if(agentid && agentid>0){ 
+                addCommissionHandler()
+            }
             //agent commission
-            navigation(`/paymentinfo/${username}/${message}`)
+            navigation(`/info/${username}/${message}`)
             return;
         }catch(e){
             setAlert(e.response.data)
@@ -75,21 +82,26 @@ const PaymentGateway = (props) => {
       
     };
 
-    const calculateFinalAmount = () => {
+    const calculateFinalAmountHandler = () => {
         const finalAmount = calculatePayAmount(amount, tax);
         setFinalAmount(parseFloat(finalAmount))
     }
 
+    const calculateAgentCommissionHandler = () => {
+        const commissionAmount = calculateAgentCommission(amount, agentCommission);
+        setCommissionAmount(parseFloat(commissionAmount));
+    }
+
     useEffect(()=>{
-        console.log(investmentDetail)
-        calculateFinalAmount();
+        calculateFinalAmountHandler();
+        calculateAgentCommissionHandler()
     },[])
   
     return (
         <div className='d-flex flex-column w-100'>
             {alert && <AleartBox message={alert} setAlert={setAlert}/>}
             <div className='float-start my-2 mx-5'>
-                    <button type="button" className="btn btn-outline-info text-end" onClick={()=>setShowGateway(false)}>🔙</button>
+                    <button type="button" className="btn btn-outline-info text-end" onClick={()=>setTab(null)}>🔙</button>
             </div>
             <div className='d-flex'>
                 <div className="container mt-4 shadow p-3 mb-5 bg-body-tertiary rounded w-50 border-5">

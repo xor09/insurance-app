@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { getAgent } from '../../service/agentApis';
+import { getAgent, withdrawCommission } from '../../service/agentApis';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import './AgentProfile.css'
+import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 const AgentProfile = (props) => {
     const {id, username} = props.user;
+    const navigation = useNavigate()
+    const token = localStorage.getItem('auth')
+
     const [profile, setProfile] = useState({})
     const [alert, setAlert] = useState(null);
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState(0.0);
     const [showform, setShowForm] = useState(false);
 
     const fetchAgentHandle = async () => {
@@ -19,7 +24,7 @@ const AgentProfile = (props) => {
         }
     }
 
-    const handleUpdate = () => {
+    const handleWithdraw = async () => {
         if(!amount || amount===0){
             setAlert("Please enter some amount");
             return;
@@ -29,10 +34,15 @@ const AgentProfile = (props) => {
             return;
         }
 
-        window.alert(amount)
-
-        setShowForm(false);
-        fetchAgentHandle();
+        try{
+            const currentDate = new Date();
+            const date = format(currentDate, 'yyyy-MM-dd');
+            const response = await withdrawCommission(id, amount, date, token);
+            const message = response.data;
+            navigation(`/info/${username}/${message}`)
+        }catch(e){
+            setAlert(e.response.data)
+        }
         return
     };
 
@@ -73,7 +83,7 @@ const AgentProfile = (props) => {
                             />
                         </div>
                         <div className='d-flex justify-content-center'>
-                            <button className="btn btn-success w-50" onClick={handleUpdate}>Withdraw</button>
+                            <button className="btn btn-success w-50" onClick={handleWithdraw}>Withdraw</button>
                         </div>
                     </div>
                 </div>

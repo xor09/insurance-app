@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { investmentCalculator } from '../../service/calculator';
 import schemeimage from '../../assets/images/Life-Insurance.jpg'
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
-import { ACTIVE, BUY_POLICY, ROLE_CUSTOMER, SCHEME_DETAILS } from '../../assets/constants';
+import { ACTIVE, BUY_POLICY, PENDING, ROLE_CUSTOMER, SCHEME_DETAILS } from '../../assets/constants';
 import PaymentGateway from '../paymentGateway/PaymentGateway';
 import BuyPolicy from '../buyPolicy/BuyPolicy';
 import { addYears, format } from 'date-fns';
@@ -85,7 +85,7 @@ const SchemeDetail = (props) => {
             schemeid : scheme.schemeId,
             issueDate : issueDate,
             maturityDate : maturityDate,
-            status : ACTIVE
+            status : PENDING
         }
 
         setInvestmentDetail(investment)
@@ -95,7 +95,7 @@ const SchemeDetail = (props) => {
 
     return (
         <>
-            <div className='w-100 '>
+            <div className='w-100 mt-3'>
                 {alert && <AleartBox message={alert} setAlert={setAlert}/>}
                 <div className='float-start'>
                     <button type="button" class="btn btn-secondary text-end" onClick={()=>setTabs(null)}>Back</button>

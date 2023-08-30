@@ -12,7 +12,10 @@ import Home from '../home/Home';
 const Dashboard = () => {
     const [component, setComponent] = useState(HOME)
     const [planid, setPlanid] = useState(null)
-    localStorage.removeItem('auth')
+    
+    useEffect(()=>{
+        localStorage.removeItem('auth')
+    },[])
 
     return (
         <>

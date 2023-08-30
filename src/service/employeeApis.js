@@ -51,3 +51,27 @@ export const updateAgent = (agentid, status, token) => {
     });
     return response
 }
+
+
+export const getPolicyByStatus = (status, currentpageno, size, token) => {
+    const response = axios.get(`http://localhost:8080/insurenceapp/status/${status}`,{
+        params:{
+            pageno : currentpageno-1,
+            pagesize : size
+        },
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return response;
+}
+
+export const updatePolicyStatus = (policyid, status, token) => {
+    const response = axios.put(`http://localhost:8080/insurenceapp/updatestatus/${policyid}/${status}`,{},
+    {
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return response;
+}
