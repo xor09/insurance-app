@@ -38,3 +38,15 @@ export const withdrawCommission = (agentid, amount, date, token) => {
     });
     return response;
 }
+
+export const getAgentWithdraws = (agentid, currentpageno, size) => {
+    const response = axios.get(`http://localhost:8080/insurenceapp/withdrawsbyid/${agentid}`,
+    {
+        params: {
+            pageno: currentpageno - 1,
+            pagesize: size
+        }
+    });
+
+    return response
+}

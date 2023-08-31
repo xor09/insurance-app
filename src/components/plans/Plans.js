@@ -113,7 +113,7 @@ const Plans = () => {
             }
 
             {/* update Insurance Plan modal */}
-            <div className='mx-3 my-4'>
+                <div className='mx-3 my-4'>
                     <div className="modal fade" id="updatePlanModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div className="modal-dialog">
                             <div className="modal-content">

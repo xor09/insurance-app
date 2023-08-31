@@ -3,8 +3,9 @@ import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
 import { getPolicies } from '../../service/customerApis';
 import Table from '../sharedComponent/table/Table';
-import { CUSTOMER_PAYMENTS, INACTIVE, PENDING } from '../../assets/constants';
+import { ACTIVE, CUSTOMER_CLAIMS, CUSTOMER_PAYMENTS, INACTIVE, PENDING } from '../../assets/constants';
 import CustomerPayments from '../CustomerPayments/CustomerPayments';
+import CustomerClaims from '../customerClaims/CustomerClaims';
 
 const CustomerPolicies = (props) => {
     const customerid = props.user.id;
@@ -37,7 +38,8 @@ const CustomerPolicies = (props) => {
                     policy.issueDate,
                     policy.sumAssured,
                     policy.maturityDate,
-                    policy.status,
+                    <p className={policy.status === PENDING ? 'text-warning':
+                    policy.status === ACTIVE ? 'text-success' : 'text-danger'}>{policy.status}</p>,
                     <button type="button" className={`btn btn-warning 
                     ${policy.status===PENDING ||  policy.status===INACTIVE ? 'disabled' : ''}`}
                     onClick={()=>{
@@ -50,7 +52,7 @@ const CustomerPolicies = (props) => {
                     ${policy.status===PENDING ||  policy.status===INACTIVE ? 'disabled' : ''}`}
                     onClick={()=>{
                         setPolicy(policy)
-                        setTab(CUSTOMER_PAYMENTS) 
+                        setTab(CUSTOMER_CLAIMS) 
                     }}
                     >Claim</button>
                 ]
@@ -72,19 +74,30 @@ const CustomerPolicies = (props) => {
             {alert && <AleartBox message={alert} setAlert={setAlert}/>}
             {alertSuccess && <AleartBoxSuccess message={alertSuccess} setAlert={setAlertSuccess} />}
             {
-                !tab &&
-                <Table 
-                    tableHeaders={tableHeaders} 
-                    tableData={tableData}
-                    currentpageno={currentpageno}
-                    setCurrentpageno={setCurrentpageno}
-                    totalpages={totalpages}
-                    setSize={setSize}
-                />
+                !tab &&(<>
+                    <h1 className="text-center mt-5">Customer Claims</h1><br/>
+                    <Table 
+                        tableHeaders={tableHeaders} 
+                        tableData={tableData}
+                        currentpageno={currentpageno}
+                        setCurrentpageno={setCurrentpageno}
+                        totalpages={totalpages}
+                        setSize={setSize}
+                    />
+                </>
+                )
             }
             {
                 tab && tab === CUSTOMER_PAYMENTS && 
                 <CustomerPayments 
+                    policy={policy} 
+                    tab={tab} 
+                    setTab={setTab}
+                />
+            }
+            {
+                tab && tab === CUSTOMER_CLAIMS && 
+                <CustomerClaims 
                     policy={policy} 
                     tab={tab} 
                     setTab={setTab}

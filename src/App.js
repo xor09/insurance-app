@@ -13,13 +13,14 @@ import AdminDashboard from './components/adminDashboard/AdminDashboard';
 import EmployeeDashboard from './components/employeeDashboard/EmployeeDashboard';
 import AgentDashboard from './components/agentDashboard/AgentDashboard';
 import Info from './components/Info/Info';
+import Promote from './components/sharedComponent/Promote/Promote';
 
 
 function App() {
   return (
     <>
     <Routes>
-      {/* <Route path='/login' element={<Login />}/> */}
+      <Route path='/promotion' element={<Promote />}/>
       <Route path='/adminregistration' element={<AdminRegistration />} />
       <Route path='/' element={<Dashboard />} />
       <Route path='/admin/:username' element={<AdminDashboard />} />

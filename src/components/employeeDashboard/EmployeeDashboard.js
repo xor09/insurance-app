@@ -4,9 +4,11 @@ import {
   AGENTS,
   AGENT_REGISTRATION,
   CUSTOMER_REGISTRATION,
+  EMPLOYEE_CLAIMS,
   EMPLOYEE_POLICIES,
   HOME,
   PLAN,
+  QUERY,
   ROLE_EMPLOYEE,
 } from "../../assets/constants";
 import { getRole, getUsername } from "../../service/authorization";
@@ -20,6 +22,8 @@ import Plan from "../sharedComponent/plan/Plan";
 import Employees from "../employees/Employees";
 import Agents from "../agents/Agents";
 import EmployeePolicies from "../employeePolicies/EmployeePolicies";
+import Query from "../query/Query";
+import EmployeeClaim from "../employeeClaim/EmployeeClaim";
 
 const EmployeeDashboard = () => {
   const navigation = useNavigate();
@@ -80,6 +84,9 @@ const EmployeeDashboard = () => {
       {component === PLAN && <Plan planid={planid} />}
       {component === AGENTS && <Agents />}
       {component === EMPLOYEE_POLICIES && <EmployeePolicies />}
+      {component === EMPLOYEE_CLAIMS && <EmployeeClaim />}
+      {component === QUERY && <Query /> }
+
     </>
   );
 };

@@ -3,6 +3,7 @@ import { getPaymentByPolicyNo } from "../../service/customerApis";
 import Table from "../sharedComponent/table/Table";
 import { CUSTOMER_PAYMENTS, PAYMENT_GATEWAY } from "../../assets/constants";
 import PaymentGateway from "../paymentGateway/PaymentGateway";
+import AleartBox from "../sharedComponent/alertBox/AleartBox";
 
 const CustomerPayments = (props) => {
   const policyNo = props.policy.policyid;
@@ -67,6 +68,7 @@ const CustomerPayments = (props) => {
   }, [currentpageno, size]);
   return (
     <>
+    {alert && <AleartBox message={alert} setAlert={setAlert} />}
       {!paymentGateway && (
         <div className="px-3 py-4">
           <div className="float-start">

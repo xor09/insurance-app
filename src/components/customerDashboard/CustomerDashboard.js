@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import {
   AGENT_REGISTRATION,
+  CUSTOMER_CLAIMS,
   CUSTOMER_POLICIES,
+  CUSTOMER_QUERIES,
   CUSTOMER_REGISTRATION,
   HOME,
   PLAN,
@@ -19,6 +21,8 @@ import CustomerRegistration from "../customerRegistration/CustomerRegistration";
 import Plan from "../sharedComponent/plan/Plan";
 import QueryAsking from "../queryAsking/QueryAsking";
 import CustomerPolicies from "../customerPolices/CustomerPolicies";
+import CustomerQueries from "../customerQueries/CustomerQueries";
+import CustomerClaims from "../customerClaims/CustomerClaims";
 
 const CustomerDashboard = () => {
   const navigation = useNavigate();
@@ -57,7 +61,6 @@ const CustomerDashboard = () => {
   const fetchUser = async () => {
     try {
       const response = await getUser(username, token);
-      console.log(response.data);
       setUser(response.data);
     } catch (e) {
       setAlert(e.response.data);
@@ -81,6 +84,7 @@ const CustomerDashboard = () => {
       {component === CUSTOMER_REGISTRATION && <CustomerRegistration />}
       {component === PLAN && <Plan planid={planid} user={user} />}
       {component === CUSTOMER_POLICIES && <CustomerPolicies user={user}/>}
+      {component === CUSTOMER_QUERIES && <CustomerQueries user={user} />}
       {user && <QueryAsking  user={user}/>}
     </>
   );

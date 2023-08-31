@@ -4,12 +4,13 @@ import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
 import Table from '../sharedComponent/table/Table';
 import { getPolicyByStatus, updatePolicyStatus } from '../../service/employeeApis';
+import { getDocumentsByPolicyNo } from '../../service/userApis';
+import { downloadFiles } from '../../service/downloader';
 
 const EmployeePolicies = () => {
     const token = localStorage.getItem('auth')
     const [selectedOption, setSelectedOption] = useState(ACTIVE_POLICIES);
     const [tableData, setTableData] = useState(null)
-    const [policyid, setPolicyid] = useState(null)
     const [alert, setAlert] = useState(null);
     const [alertSuccess, setAlertSuccess] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState(ACTIVE);
@@ -17,7 +18,7 @@ const EmployeePolicies = () => {
     const [size, setSize] = useState(5);
     const [totalpages, setTotalpages] = useState(1);
 
-    const tableHeaders = ['#', 'Policy No', 'Customer Id', 'Scheme Name', 'Invest Amount', 'Issue Date', 'Mature Date',"UPDATE STATUS"]
+    const tableHeaders = ['#', 'Policy No', 'Customer Id', 'Scheme Name', 'Invest Amount', 'Issue Date', 'Mature Date',"Documents","UPDATE STATUS"]
 
     const handleOptionChange = (event) => {
         setCurrentpageno(1);
@@ -39,6 +40,15 @@ const EmployeePolicies = () => {
         }
     };
 
+    const fetchFiles = async (policyno) => {
+        try{
+            const response = await getDocumentsByPolicyNo(policyno, token);
+            downloadFiles(response.data)
+        }catch(e){
+            setAlert(e.response.data);
+        }
+    }
+
     const fetchPolicies = async () =>{
         try{
             const status = 
@@ -59,6 +69,13 @@ const EmployeePolicies = () => {
                     policy.investAmount,
                     policy.issueDate,
                     policy.maturityDate,
+                    <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={()=>fetchFiles(policy.policyid)}
+                        >
+                        Download
+                    </button>,
                     <select className="form-select" id="status" value={selectedStatus} 
                     onChange={(e) => handleStatusChange(policy.policyid, e.target.value)}>
                         <option value={ACTIVE} selected={selectedStatus === ACTIVE}>ACTIVE</option>
@@ -84,6 +101,7 @@ const EmployeePolicies = () => {
         <div>
              {alert && <AleartBox message={alert} setAlert={setAlert}/>}
              {alertSuccess && <AleartBoxSuccess message={alertSuccess} setAlert={setAlertSuccess}/>}
+             <h1 className="text-center mt-4">Policies</h1><br/>
              <div className='d-flex justify-content-evenly mt-4'>
                 <label className="form-check-label">
                     <input

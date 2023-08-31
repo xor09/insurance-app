@@ -6,16 +6,20 @@ import {
   AGENTS,
   AGENT_POLICIES,
   AGENT_REGISTRATION,
+  AGENT_WITHDRAW,
   ALL_EMPLOYEES,
   ALL_PLANS,
   ALL_SCHEME,
   CUSTOMER_POLICIES,
+  CUSTOMER_QUERIES,
   CUSTOMER_REGISTRATION,
+  EMPLOYEE_CLAIMS,
   EMPLOYEE_POLICIES,
   HOME,
   LOGIN,
   PLAN,
   PROFILE,
+  QUERY,
   ROLE_ADMIN,
   ROLE_AGENT,
   ROLE_CUSTOMER,
@@ -24,6 +28,7 @@ import {
 } from "../../assets/constants";
 import { getAllActivePlans } from "../../service/userApis";
 import AleartBox from "../sharedComponent/alertBox/AleartBox";
+import Query from "../query/Query";
 
 const Navbar = (props) => {
   const token = localStorage.getItem("auth");
@@ -118,6 +123,15 @@ const Navbar = (props) => {
                     onClick={() => setComponent(EMPLOYEE_POLICIES)}
                   >
                     Policies
+                  </p>
+                </li>
+                <li className="nav-item">
+                  <p
+                    className="nav-link"
+                    aria-current="page"
+                    onClick={() => setComponent(EMPLOYEE_CLAIMS)}
+                  >
+                    Claims
                   </p>
                 </li>
               </>
@@ -224,6 +238,16 @@ const Navbar = (props) => {
                       Policies
                     </p>
                   </li>
+                  
+                  <li className="nav-item">
+                    <p
+                      className="nav-link"
+                      aria-current="page"
+                      onClick={() => setComponent(AGENT_WITHDRAW)}
+                    >
+                      Withdraws
+                    </p>
+                  </li>
                 </>
               )}
 
@@ -238,8 +262,34 @@ const Navbar = (props) => {
                       Policies
                     </p>
                   </li>
+                  <li className="nav-item">
+                    <p
+                      className="nav-link"
+                      aria-current="page"
+                      onClick={() => setComponent(CUSTOMER_QUERIES)}
+                    >
+                      Queries
+                    </p>
+                  </li>
                 </>
               )}
+
+
+            {user && (user.role === ROLE_ADMIN || user.role === ROLE_EMPLOYEE) && (
+                <>
+                  <li className="nav-item">
+                    <p
+                      className="nav-link"
+                      aria-current="page"
+                      onClick={() => setComponent(QUERY)}
+                    >
+                      Queries
+                    </p>
+                  </li>
+                </>
+              )}
+
+
 
               <li className="nav-item dropdown">
                 <p
@@ -270,6 +320,7 @@ const Navbar = (props) => {
                 </ul>
               </li>
 
+              
               {token ? (
                 <li className="nav-item">
                   <p className="nav-link" onClick={() => handleLogout()}>

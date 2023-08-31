@@ -9,6 +9,7 @@ import {
   CUSTOMER_REGISTRATION,
   HOME,
   PLAN,
+  QUERY,
   ROLE_ADMIN,
   ROLE_CUSTOMER,
   SCHEMES,
@@ -26,6 +27,7 @@ import CustomerRegistration from "../customerRegistration/CustomerRegistration";
 import Employees from "../employees/Employees";
 import SchemeRegistration from "../schemeRegistration/SchemeRegistration";
 import Schemes from "../schemes/Schemes";
+import Query from "../query/Query";
 
 const AdminDashboard = () => {
   const navigation = useNavigate();
@@ -88,6 +90,7 @@ const AdminDashboard = () => {
       {component === PLAN && <Plan planid={planid} />}
       {component === ADD_SCHEME && <SchemeRegistration />}
       {component === ALL_SCHEME && <Schemes />}
+      {component === QUERY && <Query /> }
     </>
   );
 };

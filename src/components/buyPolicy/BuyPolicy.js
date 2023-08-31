@@ -57,22 +57,35 @@ const BuyPolicy = (props) => {
             setAlert("Kindly fill all field for second nominee");
             return false;
         }
+        if(selectedFiles.length===0){
+            setAlert("Document required!");
+            return false;
+        }
 
         
-        let nominees = [{
-            nomineeName: firstNominee,
-            nomineeRelation: firstNomineeRelation
-        }];
-        if(secondNominee.trim().length!==0 && secondNomineeRelation.trim().length!==0){
-            nominees = [...nominees, {nomineeName: secondNominee, nomineeRelation: secondNomineeRelation}]
+        let nominees = [
+            {
+                nomineeName: firstNominee,
+                nomineeRelation: firstNomineeRelation
+            }
+        ];
+        
+        if (secondNominee.trim().length !== 0 && secondNomineeRelation.trim().length !== 0) {
+            nominees.push({
+                nomineeName: secondNominee,
+                nomineeRelation: secondNomineeRelation
+            });
         }
         investmentDetail.nominees = nominees
         investmentDetail.agentId = selectedAgent
         investmentDetail.premiumType = REGULAR
+        investmentDetail.documentFiles = selectedFiles;
+
         try{
             const response = await purchasePolicy(investmentDetail, token);
             navigation(`/info/${username}/${response.data}`)
         }catch(e){
+            console.error(e)
             setAlert(e.response.data)
         }
         return;

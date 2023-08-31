@@ -52,6 +52,6 @@ export const validateCity = (city) => {
 
 export const validateSchemeName = (schemename) => {
     if(schemename.length === 0) return false;
-    const regex = /^[A-Za-z]+$/;
+    const regex = /^[A-Za-z\s]+$/;
     return regex.test(schemename);
 }

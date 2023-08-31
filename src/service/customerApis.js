@@ -1,4 +1,5 @@
 import axios from "axios"
+import { format } from "date-fns";
 
 export const getActiveAgents = () => {
     const response = axios.get(`http://localhost:8080/insurenceapp/getallactiveagents`)
@@ -6,29 +7,32 @@ export const getActiveAgents = () => {
 }
 
 export const purchasePolicy = async (investmentDetail, token) => {
-    console.log(investmentDetail)
-    const data = {
-        investAmount : investmentDetail.investAmount,
-        totalInstallment : investmentDetail.totalInstallment,
-        issueDate : investmentDetail.issueDate,
-        maturityDate : investmentDetail.maturityDate,
-        premiumType : investmentDetail.premiumType,
-        premiumAmount : investmentDetail.investmentPerMonth,
-        sumAssured : investmentDetail.finalAmount,
-        status : investmentDetail.status,
-        agent : investmentDetail.agentId,
-        customer : {
-            customerId : investmentDetail.customerid
-        },
-        insuranceScheme : {
-            schemeId : investmentDetail.schemeid
-        },
-        nominees : investmentDetail.nominees
-    }
+    const formData = new FormData();
+    formData.append('investAmount', investmentDetail.investAmount);
+    formData.append('totalInstallment', investmentDetail.totalInstallment);
+    formData.append('issueDate', investmentDetail.issueDate);
+    formData.append('maturityDate', investmentDetail.maturityDate);
+    formData.append('premiumType', investmentDetail.premiumType);
+    formData.append('premiumAmount', investmentDetail.investmentPerMonth);
+    formData.append('sumAssured', investmentDetail.finalAmount);
+    formData.append('status', investmentDetail.status);
+    formData.append('agent', investmentDetail.agentId);
+    formData.append('customer.customerId', investmentDetail.customerid);
+    formData.append('insuranceScheme.schemeId', investmentDetail.schemeid);
 
-    const response = await axios.post(`http://localhost:8080/insurenceapp/addpolicy`,data,{
+    investmentDetail.nominees.forEach((nominee, index) => {
+        formData.append(`nominees[${index}].nomineeName`, nominee.nomineeName);
+        formData.append(`nominees[${index}].nomineeRelation`, nominee.nomineeRelation);
+    });
+
+    investmentDetail.documentFiles.forEach(file => {
+        formData.append('documentFiles', file);
+    });
+
+    const response = await axios.post(`http://localhost:8080/insurenceapp/addpolicy`,formData,{
         headers : {
-            Authorization : `Bearer ${token}`
+            Authorization : `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
         }
     })
 
@@ -88,4 +92,42 @@ export const getPaymentByPolicyNo = async (policyid, currentpageno, size) => {
     })
     return response
 }
+
+export const getAllQueriesByCustomerId = async (customerid, currentpageno, size, token) => {
+    const response = await axios.get(`http://localhost:8080/insurenceapp/getqueries/${customerid}`,
+    {
+        params: {
+            pageno: currentpageno-1,
+            pagesize : size
+        },
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return response
+}
+
+export const applyClaim = async (formData, token) => {
+      const response = await axios.post(`http://localhost:8080/insurenceapp/addclaim`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data', 
+          }
+        }
+      );
+      return response;
+  };
+
+  export const getAllClaim = async (policyNo, token) => {
+    const response = await axios.get(`http://localhost:8080/insurenceapp/getbypolicynumber/${policyNo}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }
+    );
+    return response;
+};
 

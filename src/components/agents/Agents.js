@@ -84,6 +84,7 @@ const Agents = () => {
         <div>
              {alert && <AleartBox message={alert} setAlert={setAlert}/>}
              {alertSuccess && <AleartBoxSuccess message={alertSuccess} setAlert={setAlertSuccess}/>}
+             <h1 className="text-center mt-4">Agents</h1><br/>
              <div className='d-flex justify-content-evenly mt-4'>
                 <label className="form-check-label">
                     <input

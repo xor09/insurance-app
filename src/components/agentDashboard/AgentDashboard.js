@@ -4,6 +4,7 @@ import { getRole, getUsername } from "../../service/authorization";
 import {
   AGENT_POLICIES,
   AGENT_REGISTRATION,
+  AGENT_WITHDRAW,
   CUSTOMER_REGISTRATION,
   HOME,
   PLAN,
@@ -20,6 +21,7 @@ import Plan from "../sharedComponent/plan/Plan";
 import SchemeRegistration from "../schemeRegistration/SchemeRegistration";
 import AgentProfile from "../agentProfile/AgentProfile";
 import AgentPolicies from "../agentPolicies/AgentPolicies";
+import AgentWithdraws from "../agentWithdraws/AgentWithdraws";
 
 const AgentDashboard = () => {
   const navigation = useNavigate();
@@ -80,6 +82,7 @@ const AgentDashboard = () => {
       {component === PLAN && <Plan planid={planid} />}
       {component === PROFILE && <AgentProfile user={user} />}
       {component === AGENT_POLICIES && <AgentPolicies user={user} />}
+      {component === AGENT_WITHDRAW && <AgentWithdraws user={user} />}
     </>
   );
 };

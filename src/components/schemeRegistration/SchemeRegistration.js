@@ -71,10 +71,10 @@ const SchemeRegistration = () => {
     }
 
     const schemename = validateSchemeName(schemeName);
-    // if(!schemename){
-    //     setAlert("Invalid schemename name.");
-    //     return;
-    // }
+    if(!schemename){
+        setAlert("Invalid schemename name.");
+        return;
+    }
 
     const formData = new FormData();
     formData.append("schemeName", schemeName);
