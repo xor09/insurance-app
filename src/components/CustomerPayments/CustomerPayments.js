@@ -4,9 +4,12 @@ import Table from "../sharedComponent/table/Table";
 import { CUSTOMER_PAYMENTS, PAYMENT_GATEWAY } from "../../assets/constants";
 import PaymentGateway from "../paymentGateway/PaymentGateway";
 import AleartBox from "../sharedComponent/alertBox/AleartBox";
+import { calculateNextInstallmentDate } from "../../service/calculator";
 
 const CustomerPayments = (props) => {
   const policyNo = props.policy.policyid;
+  const issueDate = props.policy.issueDate;
+  console.log(typeof issueDate)
   const agentid = props.policy.agent;
   const registrationCommission =
     props.policy.insuranceScheme.schemeDetails.registrationCommission;
@@ -86,14 +89,15 @@ const CustomerPayments = (props) => {
                 <h4>No due Installment</h4>
               </div>
             ) : (
-              <div className="float-end">
+              <div className="d-flex justify-content-center mt-5 shadow-lg p-3 mb-5 bg-body-tertiary rounded
+              border border-danger-subtle">
                 <button
                   type="button"
                   className="btn btn-outline-success text-end"
                   onClick={() => setPaymentGateWay(PAYMENT_GATEWAY)}
                 >
-                  Pay Your {!firstPayment ? tableData.length + 1 : "1st"}{" "}
-                  installment
+                  <span className="fw-bold">Pay Your #{!firstPayment ? tableData.length + 1 : "1st"}{" "}
+                  installment</span> <span className="text-danger fw-bolder">(Due Date {calculateNextInstallmentDate(issueDate, 7, tableData.length)})</span>
                 </button>
               </div>
             )}

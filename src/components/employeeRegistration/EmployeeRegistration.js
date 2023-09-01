@@ -4,9 +4,12 @@ import { validatefirstname, validatelastname, validatepassword, validateusername
 import { employeeRegistration } from '../../service/authorization';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const EmployeeRegistration = (props) => {
     const setTabs = props.setTabs;
+    const currentUser = useParams().username
+    const navigation = useNavigate();
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [username, setUsername] = useState('');
@@ -36,7 +39,8 @@ const EmployeeRegistration = (props) => {
         }
         try{
             const response = await employeeRegistration(firstname, lastname, username, password, salary, token);
-            setAlertSuccess(response.data)
+            const message = response.data
+            navigation(`/info/${currentUser}/${message}`)
         }catch(e){
             setAlert(e.response.data)
         }
@@ -52,7 +56,7 @@ const EmployeeRegistration = (props) => {
             </div><br/>
             <div className='registartion-form-wrapper'>
                 <h1>Employee Registration</h1>
-                <form className='w-25 my-5 shadow p-3 mb-5 bg-body rounded p-4'> 
+                <form className='w-50 my-5 shadow p-3 mb-5 bg-body rounded p-4'> 
                     <div className="mb-3">
                         <label for="firstname" className="form-label">Firstname</label>
                         <input type="text" className="form-control" id="firstname" 

@@ -5,6 +5,7 @@ import {
   ADD_SCHEME,
   AGENTS,
   AGENT_POLICIES,
+  AGENT_PROMOTION,
   AGENT_REGISTRATION,
   AGENT_WITHDRAW,
   ALL_EMPLOYEES,
@@ -246,6 +247,16 @@ const Navbar = (props) => {
                       onClick={() => setComponent(AGENT_WITHDRAW)}
                     >
                       Withdraws
+                    </p>
+                  </li>
+
+                  <li className="nav-item">
+                    <p
+                      className="nav-link"
+                      aria-current="page"
+                      onClick={() => setComponent(AGENT_PROMOTION)}
+                    >
+                      Promote
                     </p>
                   </li>
                 </>

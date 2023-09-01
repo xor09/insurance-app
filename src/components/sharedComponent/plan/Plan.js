@@ -40,7 +40,8 @@ const Plan = (props) => {
             <div className='scheme-wrapper mx-2'>
                 {tabs===null &&
                     <>
-                        {schemes.map((data, index)=>
+                        { schemes.length===0 ? <h3 className='mt-4'>No Scheme found</h3> :
+                        schemes.map((data, index)=>
                             <Scheme key={index+1} scheme={data} setScheme={setScheme} tabs={tabs} setTabs={setTabs}/>)}
                       
                      </>

@@ -58,3 +58,4 @@ export const EMPLOYEE_CLAIMS = "EMPLOYEE_CLAIMS"
 export const APPROVED = "APPROVED";
 export const APPLIED = "APPLIED";
 export const REJECTED = "REJECTED";
+export const AGENT_PROMOTION = "AGENT_PROMOTION"

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getRole, getUsername } from "../../service/authorization";
 import {
   AGENT_POLICIES,
+  AGENT_PROMOTION,
   AGENT_REGISTRATION,
   AGENT_WITHDRAW,
   CUSTOMER_REGISTRATION,
@@ -22,6 +23,7 @@ import SchemeRegistration from "../schemeRegistration/SchemeRegistration";
 import AgentProfile from "../agentProfile/AgentProfile";
 import AgentPolicies from "../agentPolicies/AgentPolicies";
 import AgentWithdraws from "../agentWithdraws/AgentWithdraws";
+import Promote from "../sharedComponent/Promote/Promote";
 
 const AgentDashboard = () => {
   const navigation = useNavigate();
@@ -83,6 +85,7 @@ const AgentDashboard = () => {
       {component === PROFILE && <AgentProfile user={user} />}
       {component === AGENT_POLICIES && <AgentPolicies user={user} />}
       {component === AGENT_WITHDRAW && <AgentWithdraws user={user} />}
+      {component === AGENT_PROMOTION && <Promote user={user} />}
     </>
   );
 };

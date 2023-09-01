@@ -23,7 +23,9 @@ const Info = () => {
             }
         } catch (error) {
             console.error('Error fetching role:', error);
-            navigation(`/`)
+            setTimeout(() => {
+                navigation(`/`)
+            }, 5000);
         }
     };
 

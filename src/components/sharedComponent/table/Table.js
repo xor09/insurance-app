@@ -11,7 +11,7 @@ const Table = (props) => {
 
 
     return (
-        <div className='table-wrapper'>{
+        <div className='table-wrapper shadow-sm p-3 mb-5 bg-body-tertiary rounded'>{
         !tableData || tableData.length === 0 ? <h5>{setCurrentpageno(1)}  No Data Found</h5>  : (
             <div className='w-75'>
                 <table className="table table-striped my-3">

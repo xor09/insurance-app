@@ -133,7 +133,7 @@ const SchemeDetail = (props) => {
                     {/* modal for calculating investment */}
                     <div className='mx-5 my-4' >
                         <div className="modal fade" id="calculate" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div className="modal-dialog my-5">
+                            <div className="modal-dialog modal-dialog-centered">
                                 <div className="modal-content">
                                     <div className="modal-header">
                                         <h5 className="modal-title" id="exampleModalLabel">Calculate</h5>

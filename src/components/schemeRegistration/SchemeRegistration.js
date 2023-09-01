@@ -20,9 +20,12 @@ import {
   getAllPlans,
   getAllPlansWithoutPage,
 } from "../../service/adminApis";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SchemeRegistration = () => {
   const token = localStorage.getItem("auth");
+  const currentUser = useParams().username
+  const navigation = useNavigate();
   const [schemeName, setSchemeName] = useState("");
   const [image, setImage] = useState(null);
   const [description, setDescription] = useState("");
@@ -94,7 +97,8 @@ const SchemeRegistration = () => {
 
     try {
       const response = await addScheme(formData, token);
-      setAlertSuccess(response.data);
+      const message = response.data
+      navigation(`/info/${currentUser}/${message}`)
     } catch (e) {
       setAlert(e.response.data);
     }

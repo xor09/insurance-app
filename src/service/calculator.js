@@ -1,3 +1,5 @@
+import { addDays, addMonths, format, parseISO } from "date-fns";
+
 export const investmentCalculator = (initialAmount, years, profitRatio) => {
     const months = years * 12;
     const investmentPerMonth = initialAmount / months;
@@ -16,3 +18,12 @@ export const calculateAgentCommission = (amount, percentage) => {
     const commission = ((percentage)*amount)/100 ;
     return commission.toFixed(2);
 }
+
+
+export const calculateNextInstallmentDate = (initialDate, daysToAdd, monthsToAdd) => {
+    const parsedInitialDate = parseISO(initialDate); // Parse the initial date string
+    let newDate = addMonths(parsedInitialDate, monthsToAdd);
+    newDate = addDays(newDate, daysToAdd);
+    const formattedDate = format(newDate, 'dd-MM-yyyy');
+    return formattedDate;
+  }

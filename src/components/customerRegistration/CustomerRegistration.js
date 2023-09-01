@@ -4,8 +4,12 @@ import { validateCity, validateEmail, validateMobile, validateState, validateage
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import { customerRegistration } from '../../service/authorization';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CustomerRegistration = () => {
+    const currentUser = useParams().username
+    const navigation = useNavigate();
+
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [username, setUsername] = useState('');
@@ -58,8 +62,8 @@ const CustomerRegistration = () => {
         }
         try{
             const response = await customerRegistration(firstname, lastname, age, username, password, mobile, email, state, city);
-            console.log(response)
-            setAlertSuccess(response.data)
+            const message = response.data
+            navigation(`/info/${currentUser}/${message}`)
         }catch(e){
             console.log(e)
             setAlert(e.response.data)

@@ -4,8 +4,11 @@ import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSucces
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import { validateQualification, validatefirstname, validatelastname, validatepassword, validateusername } from '../../service/validation';
 import { agentRegistration } from '../../service/authorization';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const AgentRegistration = () => {
+    const currentUser = useParams().username
+    const navigation = useNavigate();
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [username, setUsername] = useState('');
@@ -38,7 +41,8 @@ const AgentRegistration = () => {
         }
         try{
             const response = await agentRegistration(firstname, lastname, username, password, qualification);
-            setAlertSuccess(response.data)
+            const message = response.data
+            navigation(`/info/${currentUser}/${message}`)
         }catch(e){
             setAlert(e.response.data)
         }
