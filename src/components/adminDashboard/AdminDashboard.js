@@ -1,24 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  ADD_SCHEME,
-  AGENT_REGISTRATION,
-  ALL_EMPLOYEES,
-  ALL_PLANS,
-  ALL_SCHEME,
-  CUSTOMER_REGISTRATION,
-  HOME,
-  PLAN,
-  QUERY,
-  ROLE_ADMIN,
-  ROLE_CUSTOMER,
-  SCHEMES,
-} from "../../assets/constants";
 import { getRole, getUsername } from "../../service/authorization";
 import { getUser } from "../../service/userApis";
 import AleartBox from "../sharedComponent/alertBox/AleartBox";
 import Navbar from "../navbar/Navbar";
-import Scheme from "../scheme/Scheme";
 import Plans from "../plans/Plans";
 import Plan from "../sharedComponent/plan/Plan";
 import Home from "../home/Home";
@@ -28,6 +13,18 @@ import Employees from "../employees/Employees";
 import SchemeRegistration from "../schemeRegistration/SchemeRegistration";
 import Schemes from "../schemes/Schemes";
 import Query from "../query/Query";
+
+const ADD_SCHEME = process.env.REACT_APP_ADD_SCHEME;
+const AGENT_REGISTRATION = process.env.REACT_APP_AGENT_REGISTRATION;
+const ALL_EMPLOYEES = process.env.REACT_APP_ALL_EMPLOYEES;
+const ALL_PLANS = process.env.REACT_APP_ALL_PLANS;
+const ALL_SCHEME = process.env.REACT_APP_ALL_SCHEME;
+const CUSTOMER_REGISTRATION = process.env.REACT_APP_CUSTOMER_REGISTRATION;
+const HOME = process.env.REACT_APP_HOME;
+const PLAN = process.env.REACT_APP_PLAN;
+const QUERY = process.env.REACT_APP_QUERY;
+const ROLE_ADMIN = process.env.REACT_APP_ROLE_ADMIN;
+
 
 const AdminDashboard = () => {
   const navigation = useNavigate();
@@ -46,7 +43,7 @@ const AdminDashboard = () => {
     }
 
     const response1 = await getRole(token);
-    if (response1.data !== ROLE_ADMIN) {
+    if (response1.data !== "ROLE_ADMIN") {
       localStorage.removeItem("auth");
       navigation("/");
       return;

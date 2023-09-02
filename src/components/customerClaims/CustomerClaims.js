@@ -4,7 +4,10 @@ import { format } from 'date-fns';
 import { applyClaim, getAllClaim } from '../../service/customerApis';
 import { useNavigate, useParams } from 'react-router-dom';
 import Table from '../sharedComponent/table/Table';
-import { APPLIED, APPROVED } from '../../assets/constants';
+
+const APPLIED = process.env.REACT_APP_APPLIED;
+const APPROVED = process.env.REACT_APP_APPROVED;
+
 
 const CustomerClaims = (props) => {
     const policyNo = props.policy.policyid;

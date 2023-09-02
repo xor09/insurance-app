@@ -1,5 +1,4 @@
 import axios from "axios"
-import { format } from "date-fns";
 
 export const getActiveAgents = () => {
     const response = axios.get(`http://localhost:8080/insurenceapp/getallactiveagents`)

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { investmentCalculator } from '../../service/calculator';
-import schemeimage from '../../assets/images/Life-Insurance.jpg'
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
-import { ACTIVE, BUY_POLICY, PENDING, ROLE_CUSTOMER, SCHEME_DETAILS } from '../../assets/constants';
-import PaymentGateway from '../paymentGateway/PaymentGateway';
-import BuyPolicy from '../buyPolicy/BuyPolicy';
 import { addYears, format } from 'date-fns';
+
+const BUY_POLICY = process.env.REACT_APP_BUY_POLICY;
+const PENDING = process.env.REACT_APP_PENDING;
+const ROLE_CUSTOMER = process.env.REACT_APP_ROLE_CUSTOMER;
+
 
 const SchemeDetail = (props) => {
     const tabs = props.tabs;

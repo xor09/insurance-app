@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { ACTIVE, ACTIVE_POLICIES, INACTIVE, INACTIVE_POLICIES, NO_OPTION, PENDING, PENDING_POLICIES } from '../../assets/constants';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
 import Table from '../sharedComponent/table/Table';
 import { getPolicyByStatus, updatePolicyStatus } from '../../service/employeeApis';
 import { getDocumentsByPolicyNo } from '../../service/userApis';
 import { downloadFiles } from '../../service/downloader';
+
+const ACTIVE = process.env.REACT_APP_ACTIVE;
+const ACTIVE_POLICIES = process.env.REACT_APP_ACTIVE_POLICIES;
+const INACTIVE = process.env.REACT_APP_INACTIVE;
+const INACTIVE_POLICIES = process.env.REACT_APP_INACTIVE_POLICIES;
+const PENDING = process.env.REACT_APP_PENDING;
+const PENDING_POLICIES = process.env.REACT_APP_PENDING_POLICIES;
+
 
 const EmployeePolicies = () => {
     const token = localStorage.getItem('auth')

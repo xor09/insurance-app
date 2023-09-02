@@ -4,7 +4,10 @@ import { addPlans, getAllPlans, updatePlan } from '../../service/adminApis';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import Table from '../sharedComponent/table/Table';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
-import { ACTIVE, INACTIVE } from '../../assets/constants';
+
+const ACTIVE = process.env.REACT_APP_ACTIVE;
+const INACTIVE = process.env.REACT_APP_INACTIVE;
+
 
 const Plans = () => {
     const token = localStorage.getItem('auth')

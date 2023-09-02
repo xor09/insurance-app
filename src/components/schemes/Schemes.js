@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getAllSchemes } from '../../service/adminApis';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
 import Table from '../sharedComponent/table/Table';
-import { ACTIVE, INACTIVE } from '../../assets/constants';
 import { getSchemeByStatus, updateSchemeStatus } from '../../service/employeeApis';
+
+const ACTIVE = process.env.REACT_APP_ACTIVE;
+const INACTIVE = process.env.REACT_APP_INACTIVE;
+
 
 const Schemes = () => {
     const token = localStorage.getItem('auth')

@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { ACTIVE, ACTIVE_AGENTS, INACIVE_AGENTS, INACTIVE, NO_OPTION, PENDING, PENDING_AGENTS } from '../../assets/constants';
 import { getActiveAgents, getInactiveAgents, getPendingAgents, updateAgent } from '../../service/employeeApis';
 import Table from '../sharedComponent/table/Table';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
+
+const ACTIVE = process.env.REACT_APP_ACTIVE;
+const ACTIVE_AGENTS = process.env.REACT_APP_ACTIVE_AGENTS;
+const INACTIVE_AGENTS = process.env.REACT_APP_INACTIVE_AGENTS;
+const INACTIVE = process.env.REACT_APP_INACTIVE;
+const NO_OPTION = process.env.REACT_APP_NO_OPTION;
+const PENDING = process.env.REACT_APP_PENDING;
+const PENDING_AGENTS = process.env.REACT_APP_PENDING_AGENTS;
+
 
 const Agents = () => {
     const token = localStorage.getItem('auth')
@@ -42,7 +50,7 @@ const Agents = () => {
                 setCurrentpageno(currentpageno);
                 setTotalpages(response.data.totalPages);
             }
-            if(selectedOption === INACIVE_AGENTS){
+            if(selectedOption === INACTIVE_AGENTS){
                 response = await getInactiveAgents(currentpageno, size, token) 
                 setCurrentpageno(currentpageno);
                 setTotalpages(response.data.totalPages);
@@ -102,8 +110,8 @@ const Agents = () => {
                     className="form-check-input"
                     type="radio"
                     name="options"
-                    value={INACIVE_AGENTS}
-                    checked={selectedOption === INACIVE_AGENTS}
+                    value={INACTIVE_AGENTS}
+                    checked={selectedOption === INACTIVE_AGENTS}
                     onChange={handleOptionChange}
                     />
                     Inactive Agents

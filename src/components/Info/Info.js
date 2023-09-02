@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getRole } from '../../service/authorization';
-import { ROLE_ADMIN, ROLE_AGENT, ROLE_CUSTOMER, ROLE_EMPLOYEE } from '../../assets/constants';
+
+const ROLE_ADMIN = process.env.REACT_APP_ROLE_ADMIN;
+const ROLE_AGENT = process.env.REACT_APP_ROLE_AGENT;
+const ROLE_CUSTOMER = process.env.REACT_APP_ROLE_CUSTOMER;
+const ROLE_EMPLOYEE = process.env.REACT_APP_ROLE_EMPLOYEE;
+
 
 const Info = () => {
     const navigation = useNavigate();

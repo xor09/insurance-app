@@ -1,26 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/css/Form.css";
-import {
-  validateCity,
-  validateEmail,
-  validateMobile,
-  validateSchemeName,
-  validateState,
-  validateage,
-  validatefirstname,
-  validatelastname,
-  validatepassword,
-  validateusername,
-} from "../../service/validation";
+import {validateSchemeName} from "../../service/validation";
 import AleartBoxSuccess from "../sharedComponent/alertBoxSuccess/AleartBoxSuccess";
 import AleartBox from "../sharedComponent/alertBox/AleartBox";
-import { ACTIVE, INACTIVE } from "../../assets/constants";
-import {
-  addScheme,
-  getAllPlans,
-  getAllPlansWithoutPage,
-} from "../../service/adminApis";
+import {addScheme,getAllPlansWithoutPage} from "../../service/adminApis";
 import { useNavigate, useParams } from "react-router-dom";
+
+const ACTIVE = process.env.REACT_APP_ACTIVE;
+const INACTIVE = process.env.REACT_APP_INACTIVE;
+
 
 const SchemeRegistration = () => {
   const token = localStorage.getItem("auth");

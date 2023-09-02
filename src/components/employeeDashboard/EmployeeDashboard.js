@@ -1,16 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  AGENTS,
-  AGENT_REGISTRATION,
-  CUSTOMER_REGISTRATION,
-  EMPLOYEE_CLAIMS,
-  EMPLOYEE_POLICIES,
-  HOME,
-  PLAN,
-  QUERY,
-  ROLE_EMPLOYEE,
-} from "../../assets/constants";
 import { getRole, getUsername } from "../../service/authorization";
 import { getUser } from "../../service/userApis";
 import AleartBox from "../sharedComponent/alertBox/AleartBox";
@@ -24,6 +13,17 @@ import Agents from "../agents/Agents";
 import EmployeePolicies from "../employeePolicies/EmployeePolicies";
 import Query from "../query/Query";
 import EmployeeClaim from "../employeeClaim/EmployeeClaim";
+
+const AGENTS = process.env.REACT_APP_AGENTS;
+const AGENT_REGISTRATION = process.env.REACT_APP_AGENT_REGISTRATION;
+const CUSTOMER_REGISTRATION = process.env.REACT_APP_CUSTOMER_REGISTRATION; 
+const EMPLOYEE_CLAIMS = process.env.REACT_APP_EMPLOYEE_CLAIMS;
+const EMPLOYEE_POLICIES = process.env.REACT_APP_EMPLOYEE_POLICIES;
+const HOME = process.env.REACT_APP_HOME; 
+const PLAN = process.env.REACT_APP_PLAN; 
+const QUERY = process.env.REACT_APP_QUERY;
+const ROLE_EMPLOYEE = process.env.REACT_APP_ROLE_EMPLOYEE;
+
 
 const EmployeeDashboard = () => {
   const navigation = useNavigate();
@@ -42,7 +42,7 @@ const EmployeeDashboard = () => {
     }
 
     const response1 = await getRole(token);
-    if (response1.data !== ROLE_EMPLOYEE) {
+    if (response1.data !== "ROLE_EMPLOYEE") {
       localStorage.removeItem("auth");
       navigation("/");
       return;

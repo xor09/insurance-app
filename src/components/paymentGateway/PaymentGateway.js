@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
-import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
-import { payInstallment, purchasePolicy } from '../../service/customerApis';
-import { CREDIT_CARD, CUSTOMER_PAYMENTS, DEBIT_CARD } from '../../assets/constants';
+import { payInstallment } from '../../service/customerApis';
 import { calculateAgentCommission, calculatePayAmount } from '../../service/calculator';
 import { format } from 'date-fns';
 import { useNavigate, useParams } from 'react-router-dom';
 import { addCommission } from '../../service/agentApis';
+
+const CREDIT_CARD = process.env.REACT_APP_CREDIT_CARD;
+const DEBIT_CARD = process.env.REACT_APP_DEBIT_CARD;
+
 
 const PaymentGateway = (props) => {
     const token = localStorage.getItem('auth')

@@ -4,7 +4,12 @@ import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSucces
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import { login } from '../../service/authorization';
 import { useNavigate } from 'react-router-dom';
-import { ROLE_ADMIN, ROLE_AGENT, ROLE_CUSTOMER, ROLE_EMPLOYEE } from '../../assets/constants';
+
+const ROLE_ADMIN = process.env.REACT_APP_ROLE_ADMIN;
+const ROLE_AGENT = process.env.REACT_APP_ROLE_AGENT;
+const ROLE_CUSTOMER = process.env.REACT_APP_ROLE_CUSTOMER;
+const ROLE_EMPLOYEE = process.env.REACT_APP_ROLE_EMPLOYEE;
+
 
 const Login = () => {
     const navigation = useNavigate()
@@ -19,7 +24,7 @@ const Login = () => {
             const response = await login(username, password)
             localStorage.setItem('auth', response.data.accesstoken);
             setAlertSuccess("Login Successful")
-            const role = response.data.role;
+            let role = response.data.role;
             if(role === ROLE_ADMIN){
                 navigation(`/admin/${username}`)
                 return;
@@ -36,7 +41,7 @@ const Login = () => {
                 navigation(`/customer/${username}`)
                 return;
             }
-            navigation(`/dashboard`)
+            navigation(`/`)
             
         }catch(e){
             setAlert(e.response.data)

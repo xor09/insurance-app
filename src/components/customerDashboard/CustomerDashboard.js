@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
-import {
-  AGENT_REGISTRATION,
-  CUSTOMER_CLAIMS,
-  CUSTOMER_POLICIES,
-  CUSTOMER_QUERIES,
-  CUSTOMER_REGISTRATION,
-  HOME,
-  PLAN,
-  ROLE_CUSTOMER,
-} from "../../assets/constants";
 import { useNavigate, useParams } from "react-router-dom";
 import AleartBox from "../sharedComponent/alertBox/AleartBox";
 import { getUser } from "../../service/userApis";
-import Scheme from "../scheme/Scheme";
 import { getRole, getUsername } from "../../service/authorization";
 import Home from "../home/Home";
 import AgentRegistration from "../agentRegistration/AgentRegistration";
@@ -22,7 +11,16 @@ import Plan from "../sharedComponent/plan/Plan";
 import QueryAsking from "../queryAsking/QueryAsking";
 import CustomerPolicies from "../customerPolices/CustomerPolicies";
 import CustomerQueries from "../customerQueries/CustomerQueries";
-import CustomerClaims from "../customerClaims/CustomerClaims";
+
+const AGENT_REGISTRATION = process.env.REACT_APP_AGENT_REGISTRATION; 
+const CUSTOMER_POLICIES = process.env.REACT_APP_CUSTOMER_POLICIES;
+const CUSTOMER_QUERIES = process.env.REACT_APP_CUSTOMER_QUERIES;
+const CUSTOMER_REGISTRATION = process.env.REACT_APP_CUSTOMER_REGISTRATION; 
+const HOME = process.env.REACT_APP_HOME; 
+const PLAN = process.env.REACT_APP_PLAN; 
+const ROLE_CUSTOMER = process.env.REACT_APP_ROLE_CUSTOMER;
+
+
 
 const CustomerDashboard = () => {
   const navigation = useNavigate();
@@ -31,7 +29,6 @@ const CustomerDashboard = () => {
   const [component, setComponent] = useState(HOME);
   const [user, setUser] = useState(null);
   const [alert, setAlert] = useState(null);
-  const [alertSuccess, setAlertSuccess] = useState(null);
   const [planid, setPlanid] = useState(null);
 
   const validateUser = async () => {
@@ -41,7 +38,7 @@ const CustomerDashboard = () => {
     }
 
     const response1 = await getRole(token);
-    if (response1.data !== ROLE_CUSTOMER) {
+    if (response1.data !== "ROLE_CUSTOMER") {
       localStorage.removeItem("auth");
       navigation("/");
       return;

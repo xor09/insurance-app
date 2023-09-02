@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { BUY_POLICY, REGULAR, SCHEME_DETAILS } from '../../assets/constants';
-import PaymentGateway from '../paymentGateway/PaymentGateway';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import { calculateAgentCommission } from '../../service/calculator';
 import { getActiveAgents, purchasePolicy } from '../../service/customerApis';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
 import { useNavigate, useParams } from 'react-router-dom';
+
+const REGULAR = process.env.REACT_APP_REGULAR;
+const SCHEME_DETAILS = process.env.REACT_APP_SCHEME_DETAILS;
+
 
 const BuyPolicy = (props) => {
     const tabs = props.tabs;

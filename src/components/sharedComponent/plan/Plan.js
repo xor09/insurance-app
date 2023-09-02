@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './Plan.css'
 import Scheme from '../../scheme/Scheme';
-import { BUY_POLICY, PAYMENT_GATEWAY, SCHEME_DETAILS } from '../../../assets/constants';
 import SchemeDetail from '../../schemeDetail/SchemeDetail';
 import AleartBoxSuccess from '../alertBoxSuccess/AleartBoxSuccess';
 import AleartBox from '../alertBox/AleartBox';
 import { getAllActiveSchemesByPlanId } from '../../../service/userApis';
 import BuyPolicy from '../../buyPolicy/BuyPolicy';
-import PaymentGateway from '../../paymentGateway/PaymentGateway';
+
+const BUY_POLICY = process.env.REACT_APP_BUY_POLICY;
+const SCHEME_DETAILS = process.env.REACT_APP_SCHEME_DETAILS;
+
 
 const Plan = (props) => {
     const planid = props.planid

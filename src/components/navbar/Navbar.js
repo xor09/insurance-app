@@ -1,35 +1,32 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
-import {
-  ADD_SCHEME,
-  AGENTS,
-  AGENT_POLICIES,
-  AGENT_PROMOTION,
-  AGENT_REGISTRATION,
-  AGENT_WITHDRAW,
-  ALL_EMPLOYEES,
-  ALL_PLANS,
-  ALL_SCHEME,
-  CUSTOMER_POLICIES,
-  CUSTOMER_QUERIES,
-  CUSTOMER_REGISTRATION,
-  EMPLOYEE_CLAIMS,
-  EMPLOYEE_POLICIES,
-  HOME,
-  LOGIN,
-  PLAN,
-  PROFILE,
-  QUERY,
-  ROLE_ADMIN,
-  ROLE_AGENT,
-  ROLE_CUSTOMER,
-  ROLE_EMPLOYEE,
-  SCHEMES,
-} from "../../assets/constants";
 import { getAllActivePlans } from "../../service/userApis";
 import AleartBox from "../sharedComponent/alertBox/AleartBox";
-import Query from "../query/Query";
+
+const ADD_SCHEME = process.env.REACT_APP_ADD_SCHEME;
+const AGENTS = process.env.REACT_APP_AGENTS;
+const AGENT_POLICIES = process.env.REACT_APP_AGENT_POLICIES;
+const AGENT_PROMOTION = process.env.REACT_APP_AGENT_PROMOTION;
+const AGENT_REGISTRATION = process.env.REACT_APP_AGENT_REGISTRATION;
+const AGENT_WITHDRAW = process.env.REACT_APP_AGENT_WITHDRAW;
+const ALL_EMPLOYEES = process.env.REACT_APP_ALL_EMPLOYEES;
+const ALL_PLANS = process.env.REACT_APP_ALL_PLANS;
+const ALL_SCHEME = process.env.REACT_APP_ALL_SCHEME;
+const CUSTOMER_POLICIES = process.env.REACT_APP_CUSTOMER_POLICIES;
+const CUSTOMER_QUERIES = process.env.REACT_APP_CUSTOMER_QUERIES;
+const CUSTOMER_REGISTRATION = process.env.REACT_APP_CUSTOMER_REGISTRATION;
+const EMPLOYEE_CLAIMS = process.env.REACT_APP_EMPLOYEE_CLAIMS;
+const EMPLOYEE_POLICIES = process.env.REACT_APP_EMPLOYEE_POLICIES;
+const HOME = process.env.REACT_APP_HOME;
+const LOGIN = process.env.REACT_APP_LOGIN;
+const PLAN = process.env.REACT_APP_PLAN;
+const PROFILE = process.env.REACT_APP_PROFILE;
+const QUERY = process.env.REACT_APP_QUERY;
+const ROLE_ADMIN = process.env.REACT_APP_ROLE_ADMIN;
+const ROLE_AGENT = process.env.REACT_APP_ROLE_AGENT;
+const ROLE_CUSTOMER = process.env.REACT_APP_ROLE_CUSTOMER;
+const ROLE_EMPLOYEE = process.env.REACT_APP_ROLE_EMPLOYEE;
 
 const Navbar = (props) => {
   const token = localStorage.getItem("auth");

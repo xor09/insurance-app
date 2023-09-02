@@ -3,9 +3,15 @@ import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
 import { getPolicies } from '../../service/customerApis';
 import Table from '../sharedComponent/table/Table';
-import { ACTIVE, CUSTOMER_CLAIMS, CUSTOMER_PAYMENTS, INACTIVE, PENDING } from '../../assets/constants';
 import CustomerPayments from '../CustomerPayments/CustomerPayments';
 import CustomerClaims from '../customerClaims/CustomerClaims';
+
+const ACTIVE = process.env.REACT_APP_ACTIVE;
+const CUSTOMER_CLAIMS = process.env.REACT_APP_CUSTOMER_CLAIMS;
+const CUSTOMER_PAYMENTS = process.env.REACT_APP_CUSTOMER_PAYMENTS;
+const INACTIVE = process.env.REACT_APP_INACTIVE;
+const PENDING = process.env.REACT_APP_PENDING;
+
 
 const CustomerPolicies = (props) => {
     const customerid = props.user.id;

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Scheme.css'
-import schemeimage from '../../assets/images/Life-Insurance.jpg'
-import 'rc-slider/assets/index.css'; // Import slider CSS
-import Slider from 'rc-slider'; // Import the slider component
-import { investmentCalculator } from '../../service/calculator';
+import 'rc-slider/assets/index.css'; 
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
-import { SCHEME_DETAILS } from '../../assets/constants';
-import SchemeDetail from '../schemeDetail/SchemeDetail';
-import { getAllSchemes } from '../../service/adminApis';
-import { getAllActiveSchemes } from '../../service/userApis';
+
+const SCHEME_DETAILS = process.env.REACT_APP_SCHEME_DETAILS;
+
+
 
 const Scheme = (props) => {
     const token = localStorage.getItem('auth')

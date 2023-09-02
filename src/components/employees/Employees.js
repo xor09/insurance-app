@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { EMPLOYEE_REGISTRATION } from '../../assets/constants';
 import EmployeeRegistration from '../employeeRegistration/EmployeeRegistration';
 import { deleteEmployee, getAllEmployees, updateEmployee } from '../../service/adminApis';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import Table from '../sharedComponent/table/Table';
 import { validatefirstname, validatelastname } from '../../service/validation';
 import AleartBoxSuccess from '../sharedComponent/alertBoxSuccess/AleartBoxSuccess';
+
+const EMPLOYEE_REGISTRATION = process.env.REACT_APP_EMPLOYEE_REGISTRATION;
+
 
 const Employees = () => {
     const token = localStorage.getItem('auth')

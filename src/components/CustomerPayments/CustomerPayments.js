@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getPaymentByPolicyNo } from "../../service/customerApis";
 import Table from "../sharedComponent/table/Table";
-import { CUSTOMER_PAYMENTS, PAYMENT_GATEWAY } from "../../assets/constants";
 import PaymentGateway from "../paymentGateway/PaymentGateway";
 import AleartBox from "../sharedComponent/alertBox/AleartBox";
 import { calculateNextInstallmentDate } from "../../service/calculator";
+
+const PAYMENT_GATEWAY = process.env.REACT_APP_PAYMENT_GATEWAY;
 
 const CustomerPayments = (props) => {
   const policyNo = props.policy.policyid;

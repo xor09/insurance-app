@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Table from '../sharedComponent/table/Table';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import { getClaimByStatus, updateClaimStatus } from '../../service/employeeApis';
-import { APPLIED, APPROVED, REJECTED } from '../../assets/constants';
 import { downloadFiles } from '../../service/downloader';
 import { getDocumentsByPolicyNoAndClaimId } from '../../service/userApis';
+
+const APPLIED = process.env.REACT_APP_APPLIED;
+const APPROVED = process.env.REACT_APP_APPROVED;
+const REJECTED = process.env.REACT_APP_REJECTED;
+
 
 const EmployeeClaim = () => {
     const token = localStorage.getItem('auth')
