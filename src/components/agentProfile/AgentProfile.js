@@ -56,10 +56,13 @@ const AgentProfile = (props) => {
                 <div class="card user-card">
                     <h5 class="card-header">{username}</h5>
                     <div class="card-body">
-                        <h5 class="card-title">{profile.firstname} {profile.lastname}</h5>
-                        <div className='d-flex flex-row justify-content-start gap-4'>
+                        <div className='d-flex flex-row justify-content-between gap-4'>
+                            <h5 class="card-title">{profile.firstname} {profile.lastname}</h5>
                             <p class="card-text">Qualification: {profile.qualification}</p>
-                            <p class="card-text">Commission Earned: {profile.commissionEarn}</p>
+                        </div>
+                        <div className='d-flex flex-row justify-content-between gap-4'>
+                            <p class="card-text">Commission Balance: {profile.commissionEarn}</p>
+                            <p class="card-text">Total Commission Earned: {profile.totalCommissionEarned}</p>
                         </div>
                         <div className='d-flex justify-content-center mt-4'>
                             <button class="btn btn-warning" onClick={() => setShowForm(true)} >Withdraw Some Amount</button>

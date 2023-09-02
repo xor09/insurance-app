@@ -76,6 +76,8 @@ const Employees = () => {
     }
 
     const deleteEmployeeHandler = async (employeeid) => {
+        const shouldDelete = window.confirm('Are you sure you want to detele an employee with id: ' + employeeid);
+        if(!shouldDelete) return;
         try{
             const response = await deleteEmployee(employeeid, token)
             setAlertSuccess(response.data)
@@ -117,7 +119,7 @@ const Employees = () => {
             {/* modal for calculating investment */}
             <div className='mx-5 my-4' >
                     <div className="modal fade" id="updateEmployeeModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className="modal-dialog my-5">
+                        <div className="modal-dialog modal-dialog-centered">
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <h5 className="modal-title" id="updateEmployee">Update Employee</h5>
@@ -146,7 +148,9 @@ const Employees = () => {
                                 required
                                 />
                                 <div className="modal-footer">
-                                    <button type="submit" className="btn btn-success" onClick={()=>saveUpdateEmployeeHandler()}>Save</button>
+                                    <button type="submit" className="btn btn-success" 
+                                    data-bs-dismiss="modal"
+                                    onClick={()=>saveUpdateEmployeeHandler()}>Save</button>
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" 
                                     >Close</button>
                                 </div>

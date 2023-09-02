@@ -8,6 +8,7 @@ import AgentRegistration from '../agentRegistration/AgentRegistration';
 import CustomerRegistration from '../customerRegistration/CustomerRegistration';
 import Plan from '../sharedComponent/plan/Plan';
 import Home from '../home/Home';
+// import 'dotenv/config'
 
 const Dashboard = () => {
     const [component, setComponent] = useState(HOME)
@@ -25,6 +26,7 @@ const Dashboard = () => {
             {component===AGENT_REGISTRATION && <AgentRegistration />}
             {component===CUSTOMER_REGISTRATION && <CustomerRegistration/>}
             {component===PLAN && <Plan planid={planid}/>}
+            {/* {console.log(process.env.REACT_APP_ADMIN_REGISTRATION )} */}
             
         </>
     );

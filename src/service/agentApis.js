@@ -51,9 +51,8 @@ export const getAgentWithdraws = (agentid, currentpageno, size) => {
     return response
 }
 
-export const sendPromotionEmail = (sender, recievers, subject, body) => {
+export const sendPromotionEmail = (recievers, subject, body) => {
     const response = axios.post('http://localhost:8080/insurenceapp/sendmail',{
-        sender : sender,
         recipients : recievers,
         subject : subject,
         msgBody : body

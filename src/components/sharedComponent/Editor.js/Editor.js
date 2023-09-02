@@ -11,7 +11,6 @@ const Editor = () => {
   const username = useParams().username
   const navigation = useNavigate();
   const [editorHtml, setEditorHtml] = useState('');
-  const [sender, setSender] = useState('');
   const [recievers, setRecievers] = useState([])
   const [subject, setSubject] = useState('')
   const [alert, setAlert] = useState(null);
@@ -39,10 +38,6 @@ const Editor = () => {
   };
 
   const handleSave = async () => {
-   if(sender.length === 0 || !validateEmail(sender)){
-      setAlert("Write a valid sender email");
-      return;
-   }
    
    const validRecievers = recievers.filter(email => validateEmail(email.trim()));
    if(validRecievers.length === 0){
@@ -61,7 +56,7 @@ const Editor = () => {
    }
    try{
     setAlertSuccess("Sending mail...")
-    const response = await sendPromotionEmail(sender, validRecievers, subject, editorHtml);
+    const response = await sendPromotionEmail(validRecievers, subject, editorHtml);
     const message = response.data;
     navigation(`/info/${username}/${message}`);
    }catch(e){
@@ -82,13 +77,6 @@ const Editor = () => {
       {alertSuccess && <AleartBoxSuccess message={alertSuccess} setAlert={setAlertSuccess} />}
       <div className="container mt-5 mb-5">
         <form id="emailForm">
-            <div className="mb-3 text-start">
-                <label for="sender-email" class="form-label">Your email address</label>
-                <input type="email" class="form-control" id="sender-email"
-                  onChange={(e)=> setSender(e.target.value.trim())} 
-                  placeholder="Your email" required 
-                />
-            </div>
             <div className="mb-3 text-start">
                 <label for="recipient-email" class="form-label">Reciever email address
                   <small class="text-muted"> (Enter the multiple recipient's email seprated by comma (,) )</small>

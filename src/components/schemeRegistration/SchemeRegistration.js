@@ -50,10 +50,12 @@ const SchemeRegistration = () => {
 
   const handleAddScheme = async (e) => {
     e.preventDefault();
+
     if (!planid || planid === 0) {
       setAlert("Select a plan");
       return;
     }
+
     if (
       !schemeName ||
       !image ||
@@ -73,11 +75,17 @@ const SchemeRegistration = () => {
       return;
     }
 
+    if (parseFloat(minAmount) > parseFloat(maxAmount)) {
+      setAlert('Minimum investment amount should be less than maximum.');
+      return;
+    }
+
     const schemename = validateSchemeName(schemeName);
     if(!schemename){
         setAlert("Invalid schemename name.");
         return;
     }
+
 
     const formData = new FormData();
     formData.append("schemeName", schemeName);

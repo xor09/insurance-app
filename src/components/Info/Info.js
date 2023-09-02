@@ -19,13 +19,13 @@ const Info = () => {
                     else if (role.data === ROLE_AGENT) navigation(`/agent/${username}`);
                     else if (role.data === ROLE_CUSTOMER) navigation(`/customer/${username}`);
                     else navigation(`/`)
-                }, 5000);
+                }, 3000);
             }
         } catch (error) {
             console.error('Error fetching role:', error);
             setTimeout(() => {
                 navigation(`/`)
-            }, 5000);
+            }, 3000);
         }
     };
 
@@ -38,7 +38,7 @@ const Info = () => {
                 <div className="alert alert-success" role="alert">
                     {message}
                 </div>
-                <p>Redirecting in 5 seconds...</p>
+                <p>Redirecting in 3 seconds...</p>
             </div>
         </div>
     );

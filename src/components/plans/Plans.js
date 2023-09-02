@@ -115,7 +115,7 @@ const Plans = () => {
             {/* update Insurance Plan modal */}
                 <div className='mx-3 my-4'>
                     <div className="modal fade" id="updatePlanModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className="modal-dialog">
+                        <div className="modal-dialog modal-dialog-centered">
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <h5 className="modal-title" id="exampleModalLabel">Update Insurance Plan</h5>
@@ -138,7 +138,7 @@ const Plans = () => {
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary" 
+                                    <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
                                     onClick={saveUpdatePlanHandler}
                                     >Update Plan</button>
                                 </div>
