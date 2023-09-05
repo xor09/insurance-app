@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import AleartBox from '../sharedComponent/alertBox/AleartBox';
 import { format } from 'date-fns';
-import { applyClaim, getAllClaim } from '../../service/customerApis';
+import { applyClaim, getAllClaim, getClaimsByDate } from '../../service/customerApis';
 import { useNavigate, useParams } from 'react-router-dom';
 import Table from '../sharedComponent/table/Table';
+import { getRole } from '../../service/authorization';
 
 const APPLIED = process.env.REACT_APP_APPLIED;
 const APPROVED = process.env.REACT_APP_APPROVED;
+const ROLE_CUSTOMER = process.env.REACT_APP_ROLE_CUSTOMER;
 
 
 const CustomerClaims = (props) => {
@@ -25,6 +27,9 @@ const CustomerClaims = (props) => {
     const [alert, setAlert] = useState(null);
     const [alertSuccess, setAlertSuccess] = useState(null);
     const [tableData, setTableData] = useState(null)
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [role, setRole] = useState('');
 
     const tableHeaders = ['#', 'Account No', 'IFSC Code', 'Applied Date', 'Status'];
 
@@ -35,7 +40,10 @@ const CustomerClaims = (props) => {
 
     const fetchClaims = async () => {
         try{
-            const response = await getAllClaim(policyNo, token);
+            let response = null
+            if(!startDate || !endDate) response = await getAllClaim(policyNo);
+            else response = await getClaimsByDate(policyNo, startDate, endDate, currentpageno, size)
+
             setCurrentpageno(currentpageno);
             setTotalpages(response.data.totalPages);
             console.log(response.data)
@@ -104,14 +112,29 @@ const CustomerClaims = (props) => {
         setSelectedFiles([]);
     }
 
+    const handleStartDateChange = (e) => {
+        setStartDate(e.target.value);
+      };
+    
+      const handleEndDateChange = (e) => {
+        setEndDate(e.target.value);
+      };
+
+
+    const fetchRole = async () => {
+        const role = await getRole(token);
+        setRole(role.data);
+      }
+
     useEffect(()=>{
+        fetchRole()
         fetchClaims()
     },[currentpageno, size])
 
     return (
         <div>
             {alert && <AleartBox message={alert} setAlert={setAlert} />}
-            <h1 className="text-center">Customer Claims</h1><br/>
+            <h1 className="text-center mt-3">Customer Claims</h1><br/>
             <button
               type="button"
               className="btn btn-outline-info text-end float-start mx-3"
@@ -119,9 +142,43 @@ const CustomerClaims = (props) => {
             >
               🔙
             </button>
-            <button type="button" class="btn btn-primary float-end mx-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Make a claim
-            </button>
+            {
+                role=== ROLE_CUSTOMER && 
+                <button type="button" class="btn btn-success float-end mx-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Make a claim
+                </button>
+            }
+            <div className="container mt-4">
+                        <div className="row">
+                            <div className="col-md-6">
+                            <label htmlFor="start-date">Start Date:</label>
+                            <input
+                                type="date"
+                                id="start-date"
+                                className="form-control"
+                                value={startDate}
+                                onChange={handleStartDateChange}
+                            />
+                            </div>
+                            <div className="col-md-6">
+                            <label htmlFor="end-date">End Date:</label>
+                            <input
+                                type="date"
+                                id="end-date"
+                                className="form-control"
+                                value={endDate}
+                                onChange={handleEndDateChange}
+                            />
+                            </div>
+                        </div>
+                        <div className="row mt-3">
+                            <div className="col-md-12 text-center">
+                            <button className="btn btn-primary w-25" onClick={fetchClaims}>
+                                Search
+                            </button>
+                            </div>
+                        </div>
+                    </div>
             <div className='mt-5'>
                 <Table 
                     tableHeaders={tableHeaders} 

@@ -61,8 +61,8 @@ const AgentProfile = (props) => {
                             <p class="card-text">Qualification: {profile.qualification}</p>
                         </div>
                         <div className='d-flex flex-row justify-content-between gap-4'>
-                            <p class="card-text">Commission Balance: {profile.commissionEarn}</p>
-                            <p class="card-text">Total Commission Earned: {profile.totalCommissionEarned}</p>
+                            {profile.commissionEarn && <p class="card-text">Commission Balance: {profile.commissionEarn.toFixed(2)}</p>}
+                            {profile.totalCommissionEarned && <p class="card-text">Total Commission Earned: {profile.totalCommissionEarned.toFixed(2)}</p>}
                         </div>
                         <div className='d-flex justify-content-center mt-4'>
                             <button class="btn btn-warning" onClick={() => setShowForm(true)} >Withdraw Some Amount</button>

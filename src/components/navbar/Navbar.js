@@ -27,6 +27,7 @@ const ROLE_ADMIN = process.env.REACT_APP_ROLE_ADMIN;
 const ROLE_AGENT = process.env.REACT_APP_ROLE_AGENT;
 const ROLE_CUSTOMER = process.env.REACT_APP_ROLE_CUSTOMER;
 const ROLE_EMPLOYEE = process.env.REACT_APP_ROLE_EMPLOYEE;
+const EMPLOYEE_CUSTOMERS = process.env.REACT_APP_EMPLOYEE_CUSTOMERS;
 
 const Navbar = (props) => {
   const token = localStorage.getItem("auth");
@@ -117,6 +118,15 @@ const Navbar = (props) => {
                       Agents
                     </p>
                   </li>
+                  <li className="nav-item">
+                  <p
+                    className="nav-link"
+                    aria-current="page"
+                    onClick={() => setComponent(EMPLOYEE_CUSTOMERS)}
+                  >
+                    Customers
+                  </p>
+                </li>
                   <li className="nav-item">
                   <p
                     className="nav-link"

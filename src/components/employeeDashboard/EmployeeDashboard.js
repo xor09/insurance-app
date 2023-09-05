@@ -13,6 +13,7 @@ import Agents from "../agents/Agents";
 import EmployeePolicies from "../employeePolicies/EmployeePolicies";
 import Query from "../query/Query";
 import EmployeeClaim from "../employeeClaim/EmployeeClaim";
+import EmployeeCustomers from "../employeeCustomers/EmployeeCustomers";
 
 const AGENTS = process.env.REACT_APP_AGENTS;
 const AGENT_REGISTRATION = process.env.REACT_APP_AGENT_REGISTRATION;
@@ -23,6 +24,7 @@ const HOME = process.env.REACT_APP_HOME;
 const PLAN = process.env.REACT_APP_PLAN; 
 const QUERY = process.env.REACT_APP_QUERY;
 const ROLE_EMPLOYEE = process.env.REACT_APP_ROLE_EMPLOYEE;
+const EMPLOYEE_CUSTOMERS = process.env.REACT_APP_EMPLOYEE_CUSTOMERS;
 
 
 const EmployeeDashboard = () => {
@@ -74,6 +76,7 @@ const EmployeeDashboard = () => {
     validateUser();
   }, []);
 
+
   return (
     <>
       {alert && <AleartBox message={alert} setAlert={setAlert} />}
@@ -85,6 +88,7 @@ const EmployeeDashboard = () => {
       {component === CUSTOMER_REGISTRATION && <CustomerRegistration />}
       {component === PLAN && <Plan planid={planid} />}
       {component === AGENTS && <Agents />}
+      {component === EMPLOYEE_CUSTOMERS && <EmployeeCustomers />}
       {component === EMPLOYEE_POLICIES && <EmployeePolicies />}
       {component === EMPLOYEE_CLAIMS && <EmployeeClaim />}
       {component === QUERY && <Query /> }

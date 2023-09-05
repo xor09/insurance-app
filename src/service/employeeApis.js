@@ -132,3 +132,29 @@ export const updateSchemeStatus = (schemeId, status, token) => {
     })
     return response;
 }
+
+export const getAllCustomers = (pageno, pagesize, token) => {
+    const response = axios.get(`http://localhost:8080/insurenceapp/getcustomers`,
+    {
+        params:{
+            pageno: pageno - 1,
+            pagesize: pagesize
+        },
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return response;
+}
+
+export const getCustomerSearch = (keyword, pageno, pagesize) => {
+    const response = axios.get(`http://localhost:8080/insurenceapp/searchcustomer`,
+    {
+        params:{
+            pageno: pageno - 1,
+            pagesize: pagesize,
+            keyword : keyword
+        }
+    })
+    return response;
+}

@@ -119,14 +119,47 @@ export const applyClaim = async (formData, token) => {
       return response;
   };
 
-  export const getAllClaim = async (policyNo, token) => {
-    const response = await axios.get(`http://localhost:8080/insurenceapp/getbypolicynumber/${policyNo}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }
-      }
-    );
+  export const getAllClaim = async (policyNo) => {
+    const response = await axios.get(`http://localhost:8080/insurenceapp/getbypolicynumber/${policyNo}`);
     return response;
 };
+
+
+export const getPoliciesByDate = async (customerid, dateType, startDate, endDate, pageno, pagesize) =>{
+    const response = await axios.get(`http://localhost:8080/insurenceapp/getpolicybydate/${customerid}`,{
+        params:{
+            field : dateType,
+            startDate: startDate,
+            endDate: endDate,
+            pageno: pageno-1,
+            pagesize: pagesize
+        }
+    })
+    return response
+}
+
+export const getClaimsByDate = async (policyNo, startDate, endDate, pageno, pagesize) =>{
+    const response = await axios.get(`http://localhost:8080/insurenceapp/claimbypolicyanddate/${policyNo}`,{
+        params:{
+            startDate: startDate,
+            endDate: endDate,
+            pageno: pageno-1,
+            pagesize: pagesize
+        }
+    })
+    return response
+}
+
+
+export const getPaymentsByDate = async (policyNo, startDate, endDate, pageno, pagesize) =>{
+    const response = await axios.get(`http://localhost:8080/insurenceapp/payments/${policyNo}`,{
+        params:{
+            startDate: startDate,
+            endDate: endDate,
+            pageno: pageno-1,
+            pagesize: pagesize
+        }
+    })
+    return response
+}
 
