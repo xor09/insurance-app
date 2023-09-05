@@ -38,7 +38,10 @@ const Navbar = (props) => {
   const [plans, setPlans] = useState([]);
 
   const handleLogout = () => {
+    const shouldLogout = window.confirm('Are you sure you want to logout ?')
+    if(!shouldLogout) return;
     localStorage.removeItem("auth");
+    localStorage.removeItem("prev-username");
     setComponent(HOME);
     navigation("/");
     return;

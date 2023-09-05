@@ -30,27 +30,28 @@ const CustomerDashboard = () => {
   const [user, setUser] = useState(null);
   const [alert, setAlert] = useState(null);
   const [planid, setPlanid] = useState(null);
+  const message = "Unauthorized access. Redirecting to home page..."
 
   const validateUser = async () => {
+    const prevUsername = localStorage.getItem("prev-username")
     if (!token) {
       navigation("/");
       return;
     }
 
     const response1 = await getRole(token);
-    if (response1.data !== "ROLE_CUSTOMER") {
-      localStorage.removeItem("auth");
-      navigation("/");
+    if (response1.data !== ROLE_CUSTOMER) {
+      navigation(`/info/${prevUsername}/${message}`);
       return;
     }
 
     const response2 = await getUsername(token);
     if (response2.data !== username) {
-      localStorage.removeItem("auth");
-      navigation("/");
+      navigation(`/info/${prevUsername}/${message}`);
       return;
     }
 
+    localStorage.setItem("prev-username", username);
     fetchUser();
     return;
   };
